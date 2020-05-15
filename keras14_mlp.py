@@ -1,22 +1,26 @@
 #1. 데이터
 import numpy as np 
-x = np.array(range(1,101))
-y = np.array(range(101,201))
-#weight는 1bias는 100
+x = np.transpose([range(1,101), range(311,411), range(100)])
+y = np.transpose([range(101,201), range(711,811), range(100)])
+#np.array 안에 데이터들을 []로 묶는다. 
+#array 말고 transpose를 쓰게 되면 행과 열이 바뀌게 된다. 
 
+print(x.shape)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(
-x, y, shuffle=False, test_size=0.4, train_size = 0.5)
+x, y, shuffle=False, test_size=0.2, train_size = 0.8)
 # (x,y, random_state = 66, 
 
+#열우선 행무시
 
 # x_train, x_test, y_train, y_test = train_test_split(x,y, random_state = 66, test_size = 0.4 )
 
 # x_test, x_val, y_test, y_val = train_test_split(x_test, y_test, shuffle = False, test_size = 0.5) # test_size의 default 값은 0.25
-#test_size = 0.2 는 20번할당하겠다는 것이다. 하겠다는 뜻이다. train size가 80이라는 뜻이다.  
 
-
+#print("x_train:", x_train)
+#print("x_test:", x_test)
+#print("x_val:", x_val)
 
 
 
@@ -33,32 +37,34 @@ x, y, shuffle=False, test_size=0.4, train_size = 0.5)
 
 
 
+
 #2. 모델구성
 from keras.models import Sequential
 from keras.layers import Dense
 model = Sequential()
 
-model.add(Dense(3, input_dim=1))
+model.add(Dense(6, input_dim=3))
 #현재 input_dim에 있는 1이라는 숫자가 Range에 있는 1~100까지가 들어가 있다는 것이다. 
-model.add(Dense(6))
 model.add(Dense(12))
 model.add(Dense(24))
 model.add(Dense(48))
 model.add(Dense(96))
 model.add(Dense(192))
-
+model.add(Dense(384))
+model.add(Dense(768))
+model.add(Dense(384))
+model.add(Dense(192))
 model.add(Dense(96))
 model.add(Dense(48))
 model.add(Dense(24))
 model.add(Dense(12))
 model.add(Dense(6))
 model.add(Dense(3))
-model.add(Dense(1))
 
 
 #3. 훈련
 model.compile(loss='mse', optimizer = 'adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=110, batch_size=1, validation_split=0.25)
+model.fit(x_train, y_train, epochs=500, batch_size=1, validation_split=0.25)
 
 
 #validation_data=(x_val, y_val))
@@ -71,7 +77,7 @@ print("mse : ", mse)
 # print("y_pred : ", y_pred)
 
 y_predict = model.predict(x_test)
-print(y_predict)
+print("y_predict:", y_predict)
 
 #5.RMSE구하기
 from sklearn.metrics import mean_squared_error
