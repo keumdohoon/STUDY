@@ -27,7 +27,7 @@ x, y, shuffle=False, test_size=0.2, train_size = 0.8)
 
 #x_train= x[:60]
 #x_val= x[60:80]
-#x_test= x[80:]
+#x_test= x[80:] 
 
 #y_train= x[:60]
 #y_val= x[60:80]
