@@ -44,7 +44,7 @@ dense1_2=Dense(30,activation='relu')(dense1_1)
 dense1_2=Dense(10,activation='relu')(dense1_1)
 dense1_2=Dense(4,activation='relu')(dense1_2)
 
-'''
+
 
 input2 = Input(shape=(3,  ))
 dense2_1=Dense(5, activation='relu')(input1)
