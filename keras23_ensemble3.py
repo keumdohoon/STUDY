@@ -10,7 +10,7 @@ y = np.transpose([range(101,201), range(411,511), range(100)])
 ##########################
 from sklearn.model_selection import train_test_split
 x1_train, x1_test, x2_train, x2_test, y_train, y_test = train_test_split(
-    x1, x2, y, shuffle=False,
+    x1, x2, y, shuffle=True,
     train_size = 0.8)
 
 
@@ -60,20 +60,28 @@ dense2_2=Dense(4,activation='relu')(dense2_1)
 from keras.layers.merge import concatenate
 merge1 = concatenate([dense1_2, dense2_2], name='concatenate')
 
-middle1 = Dense(30, name='middle')(merge1)
-middle1 = Dense(5)(middle1)
+middle1 = Dense(10, name='middle')(merge1)
 middle1 = Dense(20)(middle1)
-middle1 = Dense(30)(middle1)
+middle1 = Dense(40)(middle1)
+middle1 = Dense(80)(middle1)
+middle1 = Dense(160)(middle1)
+middle1 = Dense(80)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+middle1 = Dense(13)(middle1)
+
+middle1 = Dense(40)(middle1)
+middle1 = Dense(20)(middle1)
 middle1 = Dense(10)(middle1)
-middle1 = Dense(7)(middle1)
 ####output모델구성######
-
-output1_1 = Dense(30)(middle1)
+output1_1 = Dense(10)(middle1)
 output1_2 = Dense(7)(output1_1)
+output1_2 = Dense(7)(output1_2)
 output1_3 = Dense(3, name='finalone')(output1_2)
-
-
-
 #input1 and input 2 will be merged into one. 
 model = Model(inputs = [input1, input2],
  outputs = output1_3)
@@ -86,7 +94,7 @@ model.summary()
 model.compile(loss='mse', optimizer = 'adam', metrics=['mse'])
 model.fit([x1_train, x2_train],
           [y_train], 
-          epochs=110, batch_size=1, validation_split=0.25, verbose=1)
+          epochs=100, batch_size=1, validation_split=0.25, verbose=1)
 
 #validation_data=(x_val, y_val))
 #4. 평가와 예측
@@ -113,8 +121,8 @@ print("RSME1 :", RMSE1)
 #6. R2구하기
 from sklearn.metrics import r2_score
 from keras.metrics import mse
-r2_1 = r2_score(y_test, y1_predict)
-print("R2_1 : ", r2_1)
+r2 = r2_score(y_test, y1_predict)
+print("R2 : ", r2)
 '''
 print("x_train:", x_train)
 print("x_test:", x_test)

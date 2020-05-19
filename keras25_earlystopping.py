@@ -34,38 +34,31 @@ from keras.layers import Dense, Input
 #model.add(Dense(1))
 
 input1 = Input(shape=(3,  ))
-dense1_1=Dense(6, activation='relu')(input1)
-dense1_2=Dense(9,activation='relu')(dense1_1)
-dense1_2=Dense(12,activation='relu')(dense1_1)
-dense1_2=Dense(24,activation='relu')(dense1_1)
-dense1_2=Dense(48,activation='relu')(dense1_1)
-dense1_2=Dense(24,activation='relu')(dense1_1)
-dense1_2=Dense(12,activation='relu')(dense1_1)
-dense1_2=Dense(6,activation='relu')(dense1_1)
-dense1_2=Dense(4,activation='relu')(dense1_2)
+dense1_1=Dense(4, activation='relu')(input1)
+dense1_2=Dense(8,activation='relu')(dense1_1)
+dense1_2=Dense(16,activation='relu')(dense1_2)
+dense1_2=Dense(32,activation='relu')(dense1_2)
+dense1_2=Dense(42,activation='relu')(dense1_2)
 
 
 
 input2 = Input(shape=(3,  ))
-dense2_1=Dense(6, activation='relu')(input1)
-dense2_2=Dense(9,activation='relu')(dense2_1)
-dense2_2=Dense(12,activation='relu')(dense2_1)
-dense2_2=Dense(24,activation='relu')(dense2_1)
-dense2_2=Dense(48,activation='relu')(dense2_1)
-dense2_2=Dense(24,activation='relu')(dense2_1)
-dense2_2=Dense(12,activation='relu')(dense2_1)
-dense2_2=Dense(6,activation='relu')(dense2_1)
+dense2_1=Dense(4, activation='relu')(input1)
+dense2_2=Dense(8,activation='relu')(dense2_1)
+dense2_2=Dense(16,activation='relu')(dense2_2)
+dense2_2=Dense(32,activation='relu')(dense2_2)
+dense2_2=Dense(42,activation='relu')(dense2_2)
 
-dense2_2=Dense(4,activation='relu')(dense2_1)
 
-from keras.layers.merge import concatenate
-merge1 = concatenate([dense1_2, dense2_2], name='concatenate')
+#from keras.layers.merge import concatenate
+#merge1 = concatenate([dense1_2, dense2_2], name='concatenate')
 
 
 ####output모델구성######
-output1_1 = Dense(10)(dense2_2)
-output1_2 = Dense(7)(output1_1)
-output1_2 = Dense(7)(output1_2)
+output1_2 = Dense(32)(dense2_2)
+output1_2 = Dense(16)(output1_2)
+output1_2 = Dense(8)(output1_2)
+output1_2 = Dense(4)(output1_2)
 output1_3 = Dense(3, name='finalone')(output1_2)
 #input1 and input 2 will be merged into one. 
 model = Model(inputs = [input1, input2],
@@ -77,9 +70,13 @@ model.summary()
 
 #3. 훈련
 model.compile(loss='mse', optimizer = 'adam', metrics=['mse'])
+
+from keras.callbacks import EarlyStopping
+early_stoppong = EarlyStopping(monitor='loss', patience=3, mode='auto')
 model.fit([x1_train, x2_train],
           y_train, 
-          epochs=120, batch_size=1, validation_split=0.25, verbose=1)
+          epochs=100, batch_size=1, validation_split=0.25, verbose=1, 
+          callbacks=[early_stoppong])
 
 #validation_data=(x_val, y_val))
 #4. 평가와 예측
