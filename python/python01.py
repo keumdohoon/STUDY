@@ -88,11 +88,59 @@ print(a[-1])#g
 print(a[-2])#n
 print(a[3:9])#lo, De
 print(a[3:-5])#lo, Deep lea
-
-
 print(a[:-1])#Hello, Deep learnin
 print(a[1:])#llo, Deep learning
 print(a[5:-4]),# Deep lear
+
+
+a= "A Big Dream"
+print(a[7])
+print(a[2:3])
+print(a[2:-2])
+print(a[3:])
+print(a[:-2])
+print(a[1:7])
+print(a[4:-1])
+print(a[:6])
+print(a[5:-4])
+print(a[5:-3])
+
+a= "Shooting Starlight"
+print(a[7])
+print(a[2:3])
+print(a[2:-2])
+print(a[3:])
+print(a[:-2])
+print(a[1:7])
+print(a[4:-1])
+print(a[:6])
+print(a[5:-4])
+print(a[5:-3])
+
+a= "Banana Sunscream"
+print(a[7])
+print(a[2:3])
+print(a[2:-2])
+print(a[3:])
+print(a[:-2])
+print(a[1:7])
+print(a[4:-1])
+print(a[:6])
+print(a[5:-4])
+print(a[5:-3])
+
+a= "Vanilla Twilight"
+print(a[7])
+print(a[2:3])
+print(a[2:-2])
+print(a[3:])
+print(a[:-2])
+print(a[1:7])
+print(a[4:-1])
+print(a[:6])
+print(a[5:-4])
+print(a[5:-3])
+
 
 
 b= "Monster in process"
