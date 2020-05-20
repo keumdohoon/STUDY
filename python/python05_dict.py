@@ -15,7 +15,7 @@ b = {'hi': 1, 'hello': 2}
 print(b['hello'])
 
 #딕셔너리 요소 삭제
-#del a[1]
+del a[1]
 print(a)
 
 del a[2]
