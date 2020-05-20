@@ -1,5 +1,5 @@
 def sum1(a, b) :
-    return a + b
+    return a + b  #return 이란 a+b를 내가 Sum1이라고 했을때 결과값으로 내놔라
 
 a = 1
 b = 2
