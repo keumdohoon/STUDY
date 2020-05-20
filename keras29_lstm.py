@@ -19,21 +19,17 @@ x = x.reshape(x.shape[0], x.shape[1], 1)#x.shape 0에는 4가 들어가고 1에�
 #[[[1],[2],[3]],[[4],[5],[6]]]
 #[[[1,2,3,4]]]
 #[[[[1],[2]]],[[[3],[4]]]]
-print("x.shape", x.shape)
+print("x.shape", x.shape)#(4,3,1)
 #2. 모델구성
 model = Sequential()
 
-model.add(LSTM(5, activation='relu', input_shape=(3,1)))#원래는 (4,3,1)인데 행을 무시해서 없다. 
-model.add(Dense(10))
-model.add(Dense(20))
-model.add(Dense(40))
-model.add(Dense(80))
-model.add(Dense(160))
-model.add(Dense(80))
-model.add(Dense(40))
-model.add(Dense(20))
-model.add(Dense(10))
+model.add(LSTM(10, activation='relu', input_shape=(3,1)))#원래는 (4,3,1)인데 행을 무시해서 없다. 
 model.add(Dense(5))
+model.add(Dense(5))
+model.add(Dense(20))
+model.add(Dense(5))
+model.add(Dense(5))
+
 model.add(Dense(1))
 
 model.summary()
@@ -42,7 +38,7 @@ model.summary()
 
 #3. 실행
 model.compile(optimizer='adam', loss='mse')
-model.fit(x,y, epochs=480, batch_size=1)
+model.fit(x,y, epochs=110, batch_size=1)
 
 x_input = array([5, 6, 7])
 x_input = x_input.reshape(1,3,1)
