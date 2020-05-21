@@ -1,6 +1,6 @@
 from numpy import array
 from keras.models import Sequential
-from keras.layers import Dense, LSTM
+from keras.layers import Dense, GRU
 
 #1. 데이터
 x = array([[1,2,3,], [2,3,4,],[3,4,5],[4,5,6]])
@@ -28,7 +28,7 @@ print("x.shape", x.shape)#(4,3,1)
 model = Sequential()
 
 #model.add(LSTM(10, activation='relu', input_shape=(3,1)))#원래는 (4,3,1)인데 행을 무시해서 없다. 
-model.add(LSTM(985, input_length= 3, input_dim=1))#원래는 (4,3,1)인데 행을 무시해서 없다. 
+model.add(GRU(985, input_length= 3, input_dim=1))#원래는 (4,3,1)인데 행을 무시해서 없다. 
 model.add(Dense(430))
 model.add(Dense(200))
 model.add(Dense(100))
@@ -40,7 +40,7 @@ model.summary()
 
 #3. 실행
 model.compile(optimizer='adam', loss='mse')
-model.fit(x,y, epochs=900, batch_size=1,  verbose=0)
+model.fit(x,y, epochs=900, batch_size=32, verbose=0)
 
 x_predict = array([5, 6, 7])
 x_predict = x_predict.reshape(1,3,1)
@@ -50,9 +50,9 @@ print(x_predict)
 
 y_predict = model.predict(x_predict)
 print(y_predict)
-
 '''
-Total params: 4,419,161
-Trainable params: 4,419,161
+Total params: 3,446,966
+Trainable params: 3,446,966
 Non-trainable params: 0
+____________[[7.995854]]_______________
 '''
