@@ -3,6 +3,7 @@
 from numpy import array
 from keras.models import Model
 from keras.layers import Dense, LSTM, Input
+from keras.callbacks import EarlyStopping
 #
 
 #1. 데이터
@@ -31,29 +32,27 @@ print("x2.shape", x2.shape)
 #2. 모델구성
 ###############################################################
 input1 = Input(shape= (3, 1))
-dense1_1=LSTM(95)(input1)
-dense1_2=Dense(40)(dense1_1)
-dense1_3=Dense(20)(dense1_2)
-
-
+dense1_1=LSTM(120)(input1)
+dense1_2=Dense(240)(dense1_1)
+dense1_3=Dense(480)(dense1_2)
 
 
 input2 = Input(shape=(3, 1))
-dense2_1=LSTM(3)(input2)
-dense2_2=Dense(43)(dense2_1)
-dense2_3=Dense(20)(dense2_2)
+dense2_1=LSTM(120)(input2)
+dense2_2=Dense(240)(dense2_1)
+dense2_3=Dense(480)(dense2_2)
 
 
 from keras.layers.merge import concatenate
 merge1 = concatenate([dense1_3, dense2_3])
 
-middle1 = Dense(10)(merge1)
-middle2 = Dense(20)(middle1)
-middle3 = Dense(40)(middle2)
+middle1 = Dense(960)(merge1)
+middle2 = Dense(1920)(middle1)
+middle3 = Dense(960)(middle2)
 
 ####output모델구성######
-output1_1 = Dense(10)(middle3)
-output1_2 = Dense(7)(output1_1)
+output1_1 = Dense(480)(middle3)
+output1_2 = Dense(240)(output1_1)
 output1_3 = Dense(1)(output1_2)
 #input1 and input 2 will be merged into one. 
 model = Model(inputs = [input1, input2], outputs = output1_3)
@@ -63,8 +62,11 @@ model.summary()
 #3. 실행
 ##################################
 model.compile(optimizer = 'adam', loss='mse')
-model.fit([x1, x2], y, epochs=800, batch_size=32)
 
+
+#early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto')
+model.fit([x1, x2], y, epochs=1000, batch_size=32)        
+          #callbacks=[early_stopping])
 
 #4. 예측
 print('x1',x1_predict)

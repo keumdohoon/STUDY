@@ -32,7 +32,7 @@ print("x.shape", x.shape)#(13,3,1)
 input1 = Input(shape=(3, 1))
 dense1 = LSTM(6)(input1)
 dense2 = Dense(36)(dense1)
-dense3 = Dense(1296)(dense2)
+dense3 = Dense(126)(dense2)
 dense4 = Dense(36)(dense3)
 
 output1 = Dense(6)(dense4)
@@ -44,7 +44,7 @@ model.summary()
 
 #3. 실행
 model.compile(optimizer='adam', loss = 'mse')
-model.fit(x, y, epochs=1200, batch_size=32, verbose=2)
+model.fit(x, y, epochs=8000, batch_size=32, verbose=2)
 
 
 
