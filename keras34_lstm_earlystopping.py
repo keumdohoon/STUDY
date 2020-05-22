@@ -1,0 +1,61 @@
+#keras34 
+
+from numpy import array
+from keras.layers import Dense, LSTM, Input
+from keras.models import Model
+from keras.callbacks import EarlyStopping
+#1. 데이터
+x = array([[1, 2, 3],  [2, 3, 4], [3, 4, 5], [4, 5, 6],
+           [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10],
+           [9, 10, 11],[11, 12, 13],[20, 30, 40],[30, 40,50],[40,50,60]])
+
+y = array([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 50, 60, 70])#스칼라 4개짜리의 하나의 벡터
+
+x_predict = array([50, 60, 70])
+
+
+
+
+print("x.shape", x.shape) #x.shape (13, 3)
+print("y.shape", y.shape) #y.shape (13,)#스칼라가 4개라는 뜻이다. 
+#x = x.reshape(13,3,1)
+
+x = x.reshape(x.shape[0], x.shape[1], 1)#x.shape 0에는 13가 들어가고 1에는 3이 들어간다. 
+print("x.shape", x.shape)#(13,3,1)
+
+
+
+
+
+#2. 모델구성
+
+
+input1 = Input(shape=(3, 1))
+dense1 = LSTM(60)(input1)
+dense2 = Dense(360)(dense1)
+dense3 = Dense(1000)(dense2)
+dense4 = Dense(360)(dense3)
+
+output1 = Dense(60)(dense4)
+output2 = Dense(1, name='finalone')(output1)
+model = Model(inputs = input1, outputs = output2)
+model.summary()
+
+
+
+#3. 실행
+model.compile(optimizer='adam', loss = 'mse')
+early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto')
+model.fit(x, y, epochs=1000, batch_size=32, callbacks=[early_stopping])
+
+
+#4. 예측
+
+x_predict = x_predict.reshape(1,3,1)
+
+
+# y_pred = model.predict(x_pred)
+# print("y_pred : ", y_pred)
+print("x_predict:",x_predict)
+y_predict = model.predict(x_predict)
+print("y_predict:", y_predict)
