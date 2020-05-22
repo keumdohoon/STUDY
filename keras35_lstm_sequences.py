@@ -75,7 +75,7 @@ Total params: 1,381
 #3. 실행
 model.compile(optimizer='adam', loss = 'mse')
 #early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto')
-model.fit(x, y, epochs=1100, batch_size=32) #callbacks=[early_stopping])
+model.fit(x, y, epochs=1000, batch_size=32) #callbacks=[early_stopping])
 
 
 #4. 예측
