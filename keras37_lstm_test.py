@@ -34,20 +34,20 @@ print("x.shape", x.shape)#(13,3,1)
 
 #2. 모델구성
 input1 = Input(shape=(3, 1))
-dense1 = LSTM(6000, return_sequences=True)(input1)
-dense2 = LSTM(4000, return_sequences=True)(dense1)
-dense3 = LSTM(7000, return_sequences=True)(dense2)
-dense4 = LSTM(1000, return_sequences=True)(dense3)
-dense5 = LSTM(10000, return_sequences=True)(dense4)
+dense1 = LSTM(1, return_sequences=True)(input1)
+dense2 = LSTM(1, return_sequences=True)(dense1)
+dense3 = LSTM(1, return_sequences=True)(dense2)
+dense4 = LSTM(1, return_sequences=True)(dense3)
+dense5 = LSTM(1, return_sequences=True)(dense4)
 
-dense6 = LSTM(2000)(dense5)
+dense6 = LSTM(20)(dense5)
 
-output1 = Dense(1000)(dense6)
-output1 = Dense(1000)(output1)
-output1 = Dense(1000)(output1)
-output1 = Dense(1000)(output1)
-output1 = Dense(1000)(output1)
-output1 = Dense(200)(output1)
+output1 = Dense(1)(dense6)
+output1 = Dense(1)(output1)
+output1 = Dense(1)(output1)
+output1 = Dense(1)(output1)
+output1 = Dense(1)(output1)
+output1 = Dense(1)(output1)
 
 output2 = Dense(1, name='finalone')(output1)
 model = Model(inputs = input1, outputs = output2)
@@ -57,7 +57,7 @@ model.summary()
 #3. 실행
 model.compile(optimizer='adam', loss = 'mse')
 #early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto')
-model.fit(x, y, epochs=1000, batch_size=32) #callbacks=[early_stopping])
+model.fit(x, y, epochs=140, batch_size=32) #callbacks=[early_stopping])
 
 
 #4. 예측

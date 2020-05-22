@@ -1,0 +1,25 @@
+###minmax scalar 에 관한 설명
+
+minmax scalar = 정규화
+X_scaled = X_std * (max - min) + min
+
+
+minmax standard = 표준화
+X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+
+#minmax scalar은 x와 y의 데이터 범위가너무 차이가 나서 데이터로 인한 오류가 있을수도 있다는 가정하에서 데이터를 표준화해주는 '0~1변환이라고한다. 
+
+
+RobustScaler()= 표준에 맞지 않거나 너무 이상한 데이터들을 걸러내어준다. 
+
+Normalizer()
+
+
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import minmax_scale
+from sklearn.preprocessing import MaxAbsScaler
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import QuantileTransformer
+from sklearn.preprocessing import PowerTransformer
