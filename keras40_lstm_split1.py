@@ -22,10 +22,12 @@ def split_x(seq, size):
     print(type(aaa))
     return np.array(aaa)
 
+
+
 dataset = split_x(a, size) #6,5
 print("======================")
-print("dataset", dataset)  #6,5
-print(dataset.shape)
+print("dataset", dataset)  
+print(dataset.shape)  #6,5
 print(type(dataset)) #numpy.ndarray 함수에 보면 리턴 값이 numpyarray이다. 그래서 결과값이 이렇게 나오는 것이다. 
 
 x = dataset[ : , 0:4] #컴마가 나오면 몇바이 몇이냐, 똔똔하고 양옆에 아무것도 안했으면 모든행이라는 뜻이고, 0부터 4라고 하면 시작인덱느는 그대로 가고 0,1,2,3
@@ -81,7 +83,7 @@ early_stopping = EarlyStopping(monitor = 'loss', patience=5, mode = 'auto')
 
 model.compile(optimizer='adam', loss='mse', metrics= ['mse'])
 model.fit(x, y, epochs=120, batch_size=1, verbose=1,
-           callbacks=[early_stopping])#변수를 이미 만들어 놓으면 나중에 리스트에서 푸펀으로  earlystopping이 이미 나오게 되어있다. 
+           callbacks=[early_stopping])#변수를 이미 만들어 놓으면 나중에 리스트에서 추천코드로  earlystopping이 이미 나오게 되어있다. 
 
 loss, mse = model.evaluate(x, y)
 
