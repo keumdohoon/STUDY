@@ -1,9 +1,10 @@
 #keras40_lstm_split1
 
 import numpy as np          
-from keras.models import Sequential
-from keras.layers import Dense, LSTM
+from keras.models import Sequential, Model
+from keras.layers import Dense, LSTM, Input
 from sklearn.model_selection import train_test_split
+from keras.callbacks import EarlyStopping
 
 
 
@@ -30,7 +31,9 @@ data = split_x(a, size)
 predict = data[90: , :4]
 print(predict)
 # predict = predict.reshape(6, 4, 1)
+predict = predict.reshape(6, 4, 1)
 print(predict.shape)
+
 
 #################x = np.reshape(94, 4, 1)###########
 
@@ -39,8 +42,7 @@ print(predict.shape)
 x = data[:90, :4]
 y = data[:90, -1:]
 
-
-
+#x = np.reshape(94, 4, 1)
 print(x)
 print(x.shape)
 print(y)
@@ -48,7 +50,7 @@ print(y.shape)
 
 
 
-# x = x.reshape(90, 4, 1)
+x = x.reshape(90, 4, 1)
 print(x.shape)
 
 x_train, x_test, y_train, y_test = train_test_split(
@@ -60,53 +62,31 @@ print(x_test.shape)
 print(y_train)
 print(y_test)
 
-x = np.reshape(94, 4, 1)
-
-'''    
-dataset = split_x(a, size) 
-print("====================================")
-print("dataset", dataset)  #
-print(dataset.shape)
-print(type(dataset)) #numpy.ndarray 함수에 보면 리턴 값이 numpyarray이다. 그래서 결과값이 이렇게 나오는 것이다. 
-
-predict = dataset[ 90: , 0:4] 
-y_train = dataset[0:90 , 4]
-x_test = dataset[ 0:90 , 0:4] 
-y_test = dataset[0:90 , 4]
-x_predict = dataset[ 90:94 , 0:4] 
-
-print("x_train:", x_train)
-print("y_train:", y_train)
-print("x_test:", x_test)
-print("y_test:", y_test)
-print("x_predict:", x_predict)
-
-########################################################
-#
-
-######################################################
-
-x = np.reshape(x, (6,4))#전체 행이6개 열이4개, 1개씩 자르니까 1 
-#x = x.reshape(6, 4, 1)#위에것과 같은것을 의미함
-print("x:", x)
-print("y:", y)
-
-#41번 스플릿 함수를 그대로 카피해온다.
 
 
-'''
  
 #2. 모델
 
-model = Sequential()
+input1 = Input(shape = (4, 1))
+dense1 = LSTM(10, activation='relu', return_sequences = True)(input1)
+dense2 = LSTM(10, activation='relu', return_sequences = True)(dense1)
+dense3 = LSTM(8, activation = 'relu')(dense2)
+dense4 = Dense(8, activation = 'relu')(dense3)
 
-model.add(LSTM(10, activation='relu', input_dim=(4,1)))
-model.add(Dense(5))
-model.add(Dense(1))
+output1 = Dense(3)(dense4)
+output2 = Dense(2)(output1)
+output3 = Dense(5)(output2)
+output4 = Dense(15)(output3)
+output5 = Dense(3)(output4)
+output6 = Dense(2)(output5)
+output7 = Dense(1)(output6)
+model = Model(inputs = input1, outputs = output7)
+model.summary()
+
+#3. 훈련, 컴파일
 
 from keras.callbacks import EarlyStopping
 early_stopping = EarlyStopping(monitor = 'loss', patience=5, mode = 'auto')
-#3. 훈련, 컴파일
 model.compile(optimizer='adam', loss='mse', metrics= ['mse'])
 model.fit(x_train, y_train, epochs=120, batch_size=1, verbose=1,
            callbacks=[early_stopping], validation_split=0.2, shuffle=True) 
