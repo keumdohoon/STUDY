@@ -69,6 +69,6 @@ print('mse:', acc)
 #예측
 x_predict = np.array([1,2,3])
 x_predict = model.predict(x_predict)
-y_predict = model.predict(x)
+y_predict = model.predict(x_predict)
 print(y_predict)
 
