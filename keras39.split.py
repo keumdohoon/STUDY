@@ -25,7 +25,7 @@ print(dataset)
 def split_x(seq, size):
     aaa = []
     for i in range(len(10) - 5 + 1): = range(6) 0,1,2,3,4,5
-        subset = seq[0 : (0 + 5)] =seq[0:5] =1~11까지의ㅣ숫자웅에 순번 0,1,2,3,4니까 이 순번에 있는 숫자는1,2,3,4,5가 된다. 
+        subset = seq[0 : (0 + 5)] =seq[0:5] =1~11까지의ㅣ숫자중에 순번 0,1,2,3,4니까 이 순번에 있는 숫자는1,2,3,4,5가 된다. 
         aaa.append([item for item in subset])subset =1,2,3,4,5
     print(type(aaa))
 
