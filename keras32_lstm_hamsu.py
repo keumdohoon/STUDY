@@ -44,7 +44,7 @@ model.summary()
 
 #3. 실행
 model.compile(optimizer='adam', loss = 'mse')
-model.fit(x, y, epochs=8000, batch_size=32, verbose=2)
+model.fit(x, y, epochs=100, batch_size=32, verbose=2)
 
 
 

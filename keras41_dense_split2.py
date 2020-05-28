@@ -13,7 +13,7 @@ a= np.array(range(1,11))
 size = 5    #time_steps=4
 #LSTM 모델을 완성하시오.
 
-
+print(a)#[ 1  2  3  4  5  6  7  8  9 10]
 def split_x(seq, size):
     aaa = []
     for i in range(len(seq) - size + 1):

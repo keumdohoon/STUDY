@@ -28,11 +28,11 @@ x_predict = scaler.transform(x_predict)
 
 
 
-print("x.shape", x.shape) #(14, 3, 1)
+print("x.shape", x.shape) #(14, 3)
 print("y.shape", y.shape) #y.shape (14,) 
 x = x.reshape(x.shape[0], x.shape[1], 1)#x.shape 0에는 13가 들어가고 1에는 3이 들어간다. 
-print("x.shape", x.shape)#(13,3,1)
-
+print("x.shape", x.shape)#(14,3,1)
+'''
 #X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
 #X_scaled = X_std * (max - min) + min
 
@@ -74,3 +74,4 @@ x_predict = x_predict.reshape(1, 3, 1)
 print("x_predict:",x_predict)
 y_predict = model.predict(x_predict)
 print("y_predict:", y_predict)
+'''

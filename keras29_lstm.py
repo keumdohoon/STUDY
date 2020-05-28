@@ -3,7 +3,7 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
 #1. 데이터
-x = array([[1,2,3,], [2,3,4,],[3,4,5],[4,5,6]])
+x = array([[1,2,3], [2,3,4],[3,4,5],[4,5,6]])
 y = array([4,5,6,7])#스칼라 4개짜리의 하나의 벡터
 y2 = array([[4,5,6,7]]) #y2=(1,4)
 y3 = array([[4],[5],[6],[7]])  #(4,1)

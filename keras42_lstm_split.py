@@ -14,7 +14,7 @@ a= np.array(range(1,101))
 size = 5    #사이즈가 5면 time_steps=4
 #LSTM 모델을 완성하시오.
 print(a.shape)
-
+'''
 def split_x(seq, size):
     aaa = []
     for i in range(len(seq) - size + 1):#100에서 사이즈 뺀다음에 더하기 1, 사이즈에서 빼기 하나 한게 의 크기이다 고로 96,5가 된다. 
@@ -108,6 +108,6 @@ print(y_predict.shape)
 
 
 
-
+'''
 
 

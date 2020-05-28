@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from keras.layers import Dropout
 
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -40,10 +41,10 @@ x_test = x_test.reshape(10000, 28, 28, 1).astype('float32') / 255
  # #나누기 255는 0부터 1까지로 나누어주기위해서 그 사이를 255개로 쪼개 주는 것이다. 이것이 정규화이다.  
  #255로 나누게 되면 최댓값이 1이 되고 최소값이 0이 된다. 
 
-#print(x_train)
-#print(x_test)
-#print(y_train.shape)
-#print(y_test.shape)
+ #print(x_train)
+ #print(x_test)
+ #print(y_train.shape)
+ #print(y_test.shape)
 
 
 print("x.shape", x_train.shape) 
@@ -53,30 +54,27 @@ print("y.shape", y_train.shape)
 #2. 모델링
 model = Sequential()
 model.add(Conv2D(10, (2,2), input_shape= (28,28,1)))   #(9,9,10)
-model.add(Conv2D(15, (3,3))) ##(7,7,7)
-model.add(Conv2D(25, (2,2), padding = 'same'))       #(7,7,5)
-model.add(Conv2D(35, (2,2), padding = 'same'))      
-model.add(Conv2D(45, (2,2), padding = 'same'))      
-model.add(Conv2D(55, (2,2), padding = 'same'))      
-model.add(Conv2D(45, (2,2)))       
-model.add(Conv2D(35, (2,2)))       
-model.add(Conv2D(25, (2,2), padding = 'same'))       #(7,7,5)
-
-model.add(Conv2D(15, (2,2)))
+model.add(Conv2D(200, (2,2), activation ='relu')) ##(7,7,7)
 model.add(MaxPooling2D(pool_size=2))
+model.add(Dropout(0.2))
+model.add(Conv2D(120, (2,2), activation ='relu', padding = 'same')) 
+model.add(MaxPooling2D(pool_size=2))
+model.add(Conv2D(10, (2,2), activation ='relu', padding = 'same')) 
+model.add(Conv2D(20, (2,2), activation ='relu', padding = 'same')) 
+model.add(Dropout(0.2))
 model.add(Flatten())
 model.add(Dense(10, activation = 'softmax'))
 model.summary()
 print(x_train)
 print(y_train)
 
-#결과값: 0.9945
+#결과값: accuracy: 0.9932
 
 #3. 훈련
 
 model.compile(loss = 'categorical_crossentropy',
               optimizer = 'adam', metrics = ['accuracy'])
-model.fit(x_train, y_train, epochs = 16, batch_size = 51, validation_split=0.2, verbose=2)
+model.fit(x_train, y_train, epochs = 15, batch_size = 50, verbose= 2)
 
 
 #y값이 0부터9까지인 수이다. 그 거를 60000가지고 있고 이를 셰이프 시키면 (60000,)
@@ -88,3 +86,5 @@ model.fit(x_train, y_train, epochs = 16, batch_size = 51, validation_split=0.2, 
 #3=0,0,0,1,0,0,0,0,0,0
 #4=0,0,0,0,1,0,0,0,0,0
 #....이러한 식으로 간다.
+
+#accuracy: 0.9971

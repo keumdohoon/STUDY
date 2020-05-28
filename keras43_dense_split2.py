@@ -12,11 +12,11 @@ from sklearn.model_selection import train_test_split
 
 
 #1. 데이터
-a= np.array(range(1,101))
+a= np.array(range(1+/8,101))
 size = 5    #사이즈가 5면 time_steps=4
 #LSTM 모델을 완성하시오.
 print(a.shape)
-
+'''
 def split_x(seq, size):
     aaa = []
     for i in range(len(seq) - size + 1):#100에서 사이즈 뺀다음에 더하기 1, 사이즈에서 빼기 하나 한게 의 크기이다 고로 96,5가 된다. 
@@ -59,7 +59,7 @@ print(y_train)
 print(y_test)
 
 
-'''    
+
 dataset = split_x(a, size) 
 print("====================================")
 print("dataset", dataset)  #
@@ -91,7 +91,7 @@ print("y:", y)
 #41번 스플릿 함수를 그대로 카피해온다.
 
 
-'''
+
  
 #2. 모델
 
@@ -123,7 +123,7 @@ print("y_predict : \n", y_predict)
 print(y_predict.shape)
 
 
-
+'''
 
 
 
