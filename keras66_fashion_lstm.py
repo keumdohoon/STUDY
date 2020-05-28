@@ -53,7 +53,7 @@ model.summary()
 
 #3. 실행
 model.compile(optimizer='rmsprop', loss = 'categorical_crossentropy', metrics= ['acc'])
-model.fit(x_train, y_train, epochs=20, batch_size=52)
+model.fit(x_train, y_train, epochs=5, batch_size=52)
 
 
 
@@ -64,4 +64,5 @@ print("loss : {loss}", loss)
 print("acc : {acc}", acc)
 
 
-#acc=0.85
+#loss : {loss} 0.5279850132465362    
+#acc : {acc} 0.8086000084877014  
