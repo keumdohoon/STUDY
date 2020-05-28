@@ -31,8 +31,9 @@ print("y.shape", y.shape) #y.shape (13,)#스칼라가 4개라는 뜻이다.
 
 
 
-model = Sequential()
+
 #2. 모델구성
+model = Sequential()
 model.add(Dense(900, input_dim=(3)))
 model.add(Dense(700))
 model.add(Dense(500))

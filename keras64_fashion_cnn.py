@@ -2,10 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from keras.layers import Input, Conv2D, Dropout, Flatten, Dense
 from keras.datasets import fashion_mnist
-from keras.models import Model
+from keras.models import Sequential
+from keras.layers import Flatten
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 plt.imshow(x_train[0])
-plt.show()
+#plt.show()
 
 
 print(x_train[0])
@@ -33,33 +34,34 @@ x_train = x_train.reshape(60000, 28, 28, 1).astype('float32')/ 255
 x_test = x_test.reshape(10000, 28, 28, 1).astype('float32')/ 255
 
 #2. 모델
-input1 = Input(shape= (28,28,1))
-Conv2d1 = Conv2D(filters = 20, kernel_size= 9, padding= 'same', activation='elu')(input1)
+model = Sequential()
+model.add(Conv2D(filters=10, kernel_size=2, activation='relu', padding='same', input_shape= (28,28,1)))
+model.add(Conv2D(20, kernel_size=3, activation='relu', padding='same'))
 
-Conv2d2 = Conv2D(filters= 25, kernel_size= 3, padding= 'same', activation= 'elu')(Conv2d1)
-Conv2d3 = Conv2D(filters= 15, kernel_size= 2, padding= 'same', activation= 'elu')(Conv2d2)
-drop1 = Dropout(0.2)(Conv2d3)
+model.add(Conv2D(filters= 25, kernel_size= 3, padding= 'same', activation= 'elu'))
+model.add(Conv2D(filters= 15, kernel_size= 2, padding= 'same', activation= 'elu'))
+model.add(Dropout(0.2))
 
-Conv2d4 = Conv2D(filters= 10, kernel_size= 3, padding = 'same', activation= 'elu')(drop1)
-Conv2d5 = Conv2D(filters= 20, kernel_size= 2, padding = 'same', activation= 'elu')(Conv2d4)
-drop2= Dropout(0.2)(Conv2d5)
+model.add(Conv2D(filters= 10, kernel_size= 3, padding = 'same', activation= 'elu'))
+model.add(Conv2D(filters= 20, kernel_size= 2, padding = 'same', activation= 'elu'))
+model.add(Dropout(0.2))
 
-output1 = (Flatten())(drop2)
-output2 = Dense(10, activation='softmax')(output1)
-model = Model(inputs= input1, outputs= output2)
+model.add(Flatten())
+model.add(Dense(10, activation='softmax'))
 model.summary()
 
 print(x_train)
 print(y_train)
 
 #3. 훈련
-model.compile(loss = 'categorical_crossentropy', optimizer = "adam", metrics = ['acc'])
-model.fit(x_train, y_train, epochs = 10)
+model.compile(loss = 'categorical_crossentropy', optimizer = "rmsprop", metrics = ['acc'])
+model.fit(x_train, y_train, epochs = 10, batch_size=42, validation_split=0.2)
 
 #4, 예측
-loss, acc = model.evaluate(x_test, y_test, batch_size = 30)
+loss, acc = model.evaluate(x_test, y_test, batch_size = 42)
 print("loss :,  ", loss)
 print("acc : ", acc)
-#############양호#################
-#####acc:0.8884000182151794#######
+##############################
+#####loss:0.3068034695446491
+#####acc :0.9024999737739563#######
 ##################################
