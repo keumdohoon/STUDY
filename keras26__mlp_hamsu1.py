@@ -55,13 +55,6 @@ dense1_2 = Dense(24)(dense1_2)
 dense1_2 = Dense(24)(dense1_2)
 dense1_2 = Dense(24)(dense1_2)
 dense1_2 = Dense(24)(dense1_2)
-
-
-
-
-
-
-
 output1_2 = Dense(32)(dense1_2)
 output1_2 = Dense(16)(output1_2)
 output1_2 = Dense(8)(output1_2)
@@ -113,3 +106,6 @@ print("x_test:", x_test)
 print("y_train:", y_train)
 print("y_test:", y_test)
 #print("x_val :", x_val)
+
+# RSME: 7.463122415278728e-05
+# R2 :  0.9999999999929524
