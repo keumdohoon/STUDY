@@ -21,8 +21,8 @@ print(x.shape) # (150, 4)
 print(y.shape) # (150,)
 # y= np_utils.to_categorical(y)
 
-# scaler = StandardScaler()
-# scaler.fit(x)
+scaler = StandardScaler()
+x = scaler.fit_transform(x)
 # x_scaled = scaler.transform(x)
 # print(x_scaled)
 
@@ -35,11 +35,8 @@ print(y.shape) # (150,)
 
 ##
 #train test split
-
-x_train, x_test, y_train, y_test = train_test_split(
-    # x_pca
-    x, y, random_state=66, shuffle=True,
-    train_size = 0.8)
+x= x.reshape(x.shape[0], 1, x.shape[1])
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=66, shuffle=True, train_size = 0.8)
 
 print(x_train.shape) #(120, 2)
 print(x_test.shape)  #(30, 2)
@@ -52,12 +49,10 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 
-x_train = x_train.reshape(120, 2, 2)
-x_test = x_test.reshape(30, 2, 2)
 
 from keras.layers import Dense, LSTM
 model = Sequential()
-model.add(LSTM(100, input_shape=(4,)))
+model.add(LSTM(100, input_shape=(1, 4)))
 model.add(Dense(200))
 model.add(Dense(300))
 model.add(Dense(400))
@@ -74,19 +69,19 @@ model.summary()
 # EarlyStopping
 from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint
 
-es = EarlyStopping(monitor = 'loss', patience=100, mode = 'auto')
-modelpath = './model/{epoch:02d}-{val_loss:.4f}.hdf5'
-checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss',
-                     save_best_only=True, mode='auto')
 
-tb_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True)
+
 
 ### 3. 훈련
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train,
-          epochs=3, batch_size=32, verbose=1,
-          validation_split=0.25,
-          callbacks=[es, checkpoint, tb_hist])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+
+es = EarlyStopping(monitor = 'loss', patience=100, mode = 'auto')
+
+tb = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True)
+
+cp = ModelCheckpoint(filepath ='./model/{epoch:02d}-{val_loss:.4f}.hdf5', monitor='val_loss', save_best_only=True, mode='auto')
+
+hist =model.fit(x_train, y_train, epochs=3, batch_size=32, verbose=1, validation_split=0.25, callbacks=[es, cp, tb])
 
 
 ### 4. 평가, 예측
