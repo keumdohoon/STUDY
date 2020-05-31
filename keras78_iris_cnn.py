@@ -52,12 +52,28 @@ from keras.layers import Dense
 
 
 model = Sequential()
-model.add(Conv2D(30, (1,1), input_shape=(1,1,4)))
+model.add(Conv2D(80, (1,1), activation='relu', padding='same', input_shape=(1,1,4)))
+model.add(Conv2D(70, (1,1), activation='relu', padding='same'))
+model.add(Dropout(0.3))
+
+model.add(Conv2D(160, (1,1), activation='relu', padding='same'))
+model.add(Conv2D(100, (1,1), activation='relu', padding='same'))
+model.add(Dropout(0.3))
+model.add(Conv2D(80, (1,1), activation='relu', padding='same'))
+# model.add(MaxPooling2D(pool_size = 2))
+model.add(Conv2D(40, (1,1), activation='relu', padding='same'))
+model.add(Conv2D(30, (1,1), activation='relu', padding='same'))
+model.add(Dropout(0.3))
+
+model.add(Conv2D(30, (1,1), activation='relu', padding='same'))
+model.add(Conv2D(100, (1,1), activation='relu', padding='same'))
+
 model.add(Flatten())
-model.add(Dense(1))
-model.add(Dense(1))
+# model.add(Dense(20))
+# model.add(Dense(10))
 model.add(Dense(3, activation='softmax'))
 model.summary()
+
 
 # EarlyStopping
 
@@ -72,7 +88,7 @@ tb = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_imag
 
 cp = ModelCheckpoint(filepath ='./model/{epoch:02d}-{val_loss:.4f}.hdf5', monitor='val_loss', save_best_only=True, mode='auto')
 
-model.fit(x_train, y_train, epochs=3, batch_size=32, verbose=1, validation_split=0.25, callbacks=[es, cp, tb])
+hist = model.fit(x_train, y_train, epochs=3, batch_size=32, verbose=1, validation_split=0.25, callbacks=[es, cp, tb])
 
 
 
@@ -85,6 +101,22 @@ print('acc:', acc)
 y_predict = model.predict(x_test)
 print(y_predict)
 
+
+plt.subplot(2,1,1)
+plt.plot(hist.history['loss'], c='black', label ='loss')
+plt.plot(hist.history['val_loss'], c='yellow', label ='val_loss')
+plt.ylabel('loss')
+plt.xlabel('epochs')
+plt.legend()
+
+plt.subplot(2,1,2)
+plt.plot(hist.history['acc'], c='red', label ='acc')
+plt.plot(hist.history['val_acc'], c='green', label ='val_acc')
+plt.ylabel('acc')
+plt.xlabel('epochs')
+plt.legend()
+
+plt.show()
 
 # # RMSE 구하기
 # from sklearn.metrics import mean_squared_error
