@@ -63,35 +63,18 @@ from keras.layers import Dense, Dropout
 
 model = Sequential()
 
-model.add(Dense(50, input_shape= (4, )))
-model.add(Dense(100, activation= 'elu'))
+model.add(Dense(40, input_shape= (4, )))
+model.add(Dense(40, activation= 'relu'))
 model.add(Dropout(0.2))
+model.add(Dense(200, activation= 'relu'))
+model.add(Dense(400, activation= 'relu'))
+model.add(Dense(80, activation= 'relu'))
+model.add(Dropout(0.3))
+model.add(Dense(40, activation= 'relu'))
+model.add(Dense(40, activation= 'relu'))
 
-model.add(Dense(200, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(400, activation= 'elu'))
-model.add(Dropout(0.2))
-model.add(Dense(400, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(200, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(400, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(100, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(500, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(400, activation= 'elu'))
-model.add(Dropout(0.2))
-
-model.add(Dense(300, activation = 'softmax'))
-model.add(Dropout(0.2))
+model.add(Dense(80, activation = 'softmax'))
+model.add(Dropout(0.3))
 
 model.add(Dense(3))
 
@@ -107,25 +90,27 @@ modelpath = './model/{epoch:02d}-{val_loss:.4f}.hdf5'
 checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True, mode='auto')
 tb_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True)
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-hist = model.fit(x_test, y_test, epochs=300, batch_size=32, validation_split=0.25,
+hist = model.fit(x_test, y_test, epochs=50, batch_size=32, validation_split=0.25,
           callbacks=[es, checkpoint, tb_hist])
 
 
 ### 4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print('loss:', loss)
-print('mse:', acc)
+print('acc:', acc)
 
 plt.subplot(2,1,1)
 plt.plot(hist.history['loss'], c='black', label ='loss')
 plt.plot(hist.history['val_loss'], c='yellow', label ='val_loss')
 plt.ylabel('loss')
+plt.xlabel('epochs')
 plt.legend()
 
 plt.subplot(2,1,2)
 plt.plot(hist.history['acc'], c='red', label ='acc')
 plt.plot(hist.history['val_acc'], c='green', label ='val_acc')
 plt.ylabel('acc')
+plt.xlabel('epochs')
 plt.legend()
 
 plt.show()
@@ -150,5 +135,5 @@ print(y_predict)
 # from sklearn.metrics import r2_score
 # r2 = r2_score(y_test, y_predict)
 # print("R2 : ", r2)
-#loss: 1.1920930376163597e-07
-#acc: 0.0455
+loss: 1.079583764076233
+acc: 0.7666666507720947
