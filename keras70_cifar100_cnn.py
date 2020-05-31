@@ -28,31 +28,34 @@ y_test = np_utils.to_categorical(y_test)
 print(y_train.shape)  #(50000, 100)
 print(y_test.shape)   #(10000, 100) 
 
-x_train = x_train.reshape(50000, 32, 32, 3).astype('float32')/ 255
-x_test = x_test.reshape(10000, 32, 32, 3).astype('float32')/ 255
+
+
+
+x_train = x_train.reshape(50000, 32, 32, 3).astype('float32')/ 255.0
+x_test = x_test.reshape(10000, 32, 32, 3).astype('float32')/ 255.0
+
 
 #2. 모델
+
+
 input1= Input(shape= (32,32,3))
-Conv2d1 = Conv2D(filters= 15, kernel_size=3, padding="same", activation="relu")(input1)
+Conv2d1 = Conv2D(filters= 20, kernel_size=3, padding="same", activation="relu")(input1)
+drop1 = Dropout(0.1)(Conv2d1)
+Conv2d2= Conv2D(filters= 40, kernel_size=3, padding="same", activation="relu")(Conv2d1) 
 
-Conv2d2= Conv2D(filters= 15, kernel_size=3, padding="same", activation="relu")(Conv2d1) 
-drop1 = Dropout(0.1)(Conv2d2)
+drop2 = Dropout(0.5)(Conv2d2)
 
-Conv2d3= Conv2D(filters= 22, kernel_size=3, padding="same", activation="relu")(drop1) 
-Conv2d4= Conv2D(filters= 21, kernel_size=3, padding="same", activation="relu")(Conv2d3) 
-drop2 = Dropout(0.3)(Conv2d4)
 
-Conv2d5= Conv2D(filters= 21, kernel_size=3, padding="same", activation="relu")(drop2) 
-drop3 = Dropout(0.3)(Conv2d5)
-Conv2d6= Conv2D(filters= 12, kernel_size=3, padding="same", activation="relu")(drop3) 
-drop4 = Dropout(0.3)(Conv2d6)
 
-Conv2d7= Conv2D(filters= 18, kernel_size=3, padding="same", activation="relu")(drop4) 
+Conv2d6= Conv2D(filters= 20, kernel_size=3, padding="same", activation="relu")(drop2) 
+drop4 = Dropout(0.2)(Conv2d6)
 
-drop5 = Dropout(0.1)(Conv2d7)
+Conv2d7= Conv2D(filters= 60, kernel_size=3, padding="same", activation="relu")(drop4) 
+pool3 =MaxPooling2D(pool_size=3)(Conv2d7)
+drop5 = Dropout(0.2)(pool3)
 
-Conv2d8= Conv2D(filters= 12, kernel_size=3, padding="same", activation="relu")(drop5) 
-drop6 = Dropout(0.1)(Conv2d8)
+Conv2d8= Conv2D(filters= 20, kernel_size=3, padding="same", activation="relu")(drop5) 
+drop6 = Dropout(0.2)(Conv2d8)
 
 output1 = (Flatten())(drop6)
 output2 = Dense(100, activation = 'softmax')(output1)
@@ -65,7 +68,7 @@ tb_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write
 model.compile(loss = 'categorical_crossentropy', optimizer = "rmsprop", metrics = ['acc'])
 early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto' )
 
-hist = model.fit(x_train, y_train, epochs = 35, batch_size=42, callbacks=[early_stopping])
+hist = model.fit(x_train, y_train, epochs = 45, validation_split= 0.2, batch_size=42, callbacks=[early_stopping])
 
 #4, 예측
 loss_acc = model.evaluate(x_test, y_test)
@@ -111,3 +114,4 @@ plt.xlabel('epoch')
 plt.legend(['acc', 'val_acc'])
 plt.show()
 
+#loss_acc:  [2.7696992603302, 0.3425999879837036]
