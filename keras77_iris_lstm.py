@@ -92,6 +92,21 @@ print('acc:', acc)
 y_predict = model.predict(x_test)
 print(y_predict)
 
+plt.subplot(2,1,1)
+plt.plot(hist.history['loss'], c='black', label ='loss')
+plt.plot(hist.history['val_loss'], c='yellow', label ='val_loss')
+plt.ylabel('loss')
+plt.xlabel('epochs')
+plt.legend()
+
+plt.subplot(2,1,2)
+plt.plot(hist.history['acc'], c='red', label ='acc')
+plt.plot(hist.history['val_acc'], c='green', label ='val_acc')
+plt.ylabel('acc')
+plt.xlabel('epochs')
+plt.legend()
+
+plt.show()
 
 # RMSE 구하기
 from sklearn.metrics import mean_squared_error
