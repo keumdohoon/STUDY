@@ -95,9 +95,9 @@ hist = model.fit(x_train, y_train, epochs=30, batch_size=32, verbose=1, validati
 
 
 ### 4. 평가, 예측
-loss, mse = model.evaluate(x_test, y_test, batch_size=32)
+loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print('loss:', loss)
-print('mse:', mse)
+print('acc:', acc)
 
 plt.subplot(2,1,1)
 plt.plot(hist.history['loss'], c='black', label ='loss')
@@ -106,7 +106,7 @@ plt.ylabel('loss')
 plt.legend()
 
 plt.subplot(2,1,2)
-plt.plot(hist.history['acc'], c='blue', label ='lmse')
+plt.plot(hist.history['acc'], c='black', label ='acc')
 plt.plot(hist.history['val_acc'], c='blue', label ='val_acc')
 plt.ylabel('acc')
 plt.legend()
