@@ -19,7 +19,7 @@ y = dataset.target
 
 print(x.shape) # (150, 4)
 print(y.shape) # (150,)
-# y= np_utils.to_categorical(y)
+y= np_utils.to_categorical(y)
 
 scaler = StandardScaler()
 x = scaler.fit_transform(x)
@@ -85,9 +85,9 @@ hist =model.fit(x_train, y_train, epochs=3, batch_size=32, verbose=1, validation
 
 
 ### 4. 평가, 예측
-loss, mse = model.evaluate(x_test, y_test, batch_size=32)
+loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print('loss:', loss)
-print('mse:', mse)
+print('acc:', acc)
 
 y_predict = model.predict(x_test)
 print(y_predict)
@@ -105,3 +105,6 @@ from sklearn.metrics import r2_score
 
 r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)
+
+#loss: 0.15265245735645294
+#acc: 0.9666666388511658
