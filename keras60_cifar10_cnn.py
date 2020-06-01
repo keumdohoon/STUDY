@@ -69,7 +69,7 @@ model.fit(x_train, y_train, epochs = 50)
 loss,acc = model.evaluate(x_test,y_test, batch_size=30)
 
 print("loss : {loss}", loss)
-print("acc : {acc}", accuracy)
+print("acc : {acc}", acc)
 
 early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto')
 
