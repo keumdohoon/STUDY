@@ -88,7 +88,7 @@ plt.ylabel('loss')
 plt.legend()
 
 plt.subplot(2,1,2)
-plt.plot(hist.history['mse'], c='blue', label ='lmse')
+plt.plot(hist.history['mse'], c='black', label ='lmse')
 plt.plot(hist.history['val_mse'], c='blue', label ='val_mse')
 plt.ylabel('acc')
 plt.legend()
