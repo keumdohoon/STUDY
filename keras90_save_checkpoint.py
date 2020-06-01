@@ -68,6 +68,7 @@ cp = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True
 early_stopping = EarlyStopping(monitor='loss', patience=30, mode='auto' )
 hist = model.fit(x_train, y_train, epochs = 30, batch_size = 51, validation_split=0.2, verbose=2, callbacks=[cp, early_stopping])
 model.save('./model/model_test01.h5')
+model.save_weights('./model/test_weight1.h5')
 
 #4. 예측
 loss_acc = model.evaluate(x_test, y_test)
@@ -82,7 +83,7 @@ print("loss : {loss}", loss)
 print("acc : {acc}", acc)
 print("val_acc: ", val_acc)
 print("loss_acc: ", loss_acc)
-
+# loss_acc:  [0.0995692705052148, 0.9753999710083008]
 
 # import matplotlib.pyplot as plt
 #  #그래프를 그려주는 것을  plt라고 하겠다

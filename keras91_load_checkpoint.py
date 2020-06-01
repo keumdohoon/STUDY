@@ -5,6 +5,8 @@
 #save data를 모델 부분밑에 한번이랑 model fit밑에 한번 두번해주고 model밑에 있는것 및애를 주석 퍼리해준다. 
 #체크 포인트를 가져와주고 파일명(65번라인)도 추가해준다. 여기서 우리는 웨이트만 가져오는게 아니라 다른것들도 가져오기때문에  체크 포인트에 save_weights_only는 false로 해준다. 
 #가중치를 세이브할수 있는거는 3가지로 모델, 웨이트, 하고 체크포인트, 이중에서 웨이트빼고 나머지 두개는 유도리가 있어서 데이터까지 가져온다. 웨이트는 웨이트만 가져온다. 
+#91에서 가장 중요한 것은 우리가 90save폴더에서 savebestonly(monitor=loss)를 통해 얻은 최적의 loss값 가중치를 model파일에 들어가서 볼수 있다. 
+#들어가 있다 그래서 딱 그 파일만 가지고 오면(line:77, 모델 파일에서 15-0.0739.hdf5를 가져오게 된다. ) 우리는 최고의 가중치를 가진 파일만을 뽑아오는 것이기에 좋은 결과를 놓을수 있다. 
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.datasets import mnist
@@ -72,7 +74,7 @@ print("y.shape", y_train.shape)  #(60000, 10)
 # hist = model.fit(x_train, y_train, epochs = 30, batch_size = 51, validation_split=0.2, verbose=2, callbacks=[cp, early_stopping])
 # model.save('./model/model_test01.h5')
 from keras.models import load_model
-model = load_model('./model/check- 0.1131.hdf5')
+model = load_model('./model/15-0.0739.hdf5')
 
 #4. 예측
 loss_acc = model.evaluate(x_test, y_test)
@@ -87,6 +89,11 @@ print("loss : {loss}", loss)
 print("acc : {acc}", acc)
 print("val_acc: ", val_acc)
 print("loss_acc: ", loss_acc)
+#여기서 hist를 안해주는 이유는 우리가 가져온 정보자체가 이미 hist를 내장하고 있고 여기서는 결과값만 보려고 하는 것이기에 hist를 지워준다는 것이다. 
+# loss_acc:  [0.07477523971106274, 0.9775999784469604]
+
+
+
 
 
 # import matplotlib.pyplot as plt
