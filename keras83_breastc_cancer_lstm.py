@@ -120,7 +120,7 @@ plt.ylabel('loss')
 plt.legend()
 
 plt.subplot(2,1,2)
-plt.plot(hist.history['acc'], c='blue', label ='acc')
+plt.plot(hist.history['acc'], c='black', label ='acc')
 plt.plot(hist.history['val_acc'], c='blue', label ='val_acc')
 plt.ylabel('acc')
 plt.legend()
