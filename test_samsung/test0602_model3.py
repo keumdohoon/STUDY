@@ -90,15 +90,16 @@ output1_3 = Dense(1)(output1_2)
 #input1 and input 2 will be merged into one. 
 model = Model(inputs = [input1, input2], outputs = output1_3)
 model.summary()
+
 #3.컴파일, 훈련
 model.compile(optimizer = 'adam', loss= 'mse', metrics= ['mse'])
-model.fit([x_sam, x_hit], y_sam, validation_split= 0.2, epochs= 100)
+model.fit([x_sam, x_hit], y_sam, validation_split= 0.2, epochs= 1)
 
-loss, mse = model.evaluate([x_sam, x_hit], y_sam, batch_size=1)
+loss, mse = model.evaluate([x_sam, x_hit], y_sam, batch_size=1000)
 print('loss: ', loss)
 print('mse: ', mse)
 
-y1_predict = model.predict([x_sam, x_hit], y_sam)
+y1_predict = model.predict(x_sam, x_hit)
 
 for i in range(5):
         print('시가 : ', y_sam[i], '/예측가 :', y1_predict[i]) 
