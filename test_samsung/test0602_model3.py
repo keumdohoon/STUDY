@@ -77,7 +77,7 @@ dense2_3=Dense(480)(dense2_2)
 
 
 from keras.layers.merge import concatenate
-merge1 = Concatenate(axis=1)([dense1_3, dense2_3])
+merge1 = Concatenate(axis=-1)([dense1_3, dense2_3])
 
 middle1 = Dense(960)(merge1)
 middle2 = Dense(1920)(middle1)
