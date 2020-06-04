@@ -32,38 +32,40 @@ samsung = np.load('./data/samsung.npy',allow_pickle=True)
 
 print(samsung.shape)#(509, 1)
 print(hite.shape)#(509, 5)
+print(samsung)
 
 
 #데이터를 자르게 되면 차원을 맞춰줘야하기때문에 Dense모델로 쓰게 될거란면 여기서 한번 리쉐이프를 해주는 것이 좋다. 
 
-samsung =samsung.reshape(samsung.shape[0],)
-print(samsung.shape) #(509,)
+# samsung =samsung.reshape(samsung.shape[0],)
+# print(samsung.shape) #(509,)
 
 from sklearn.model_selection import train_test_split
 
 x_train, x_test, y_train, y_test = train_test_split(
     hite, samsung, random_state=66, shuffle=True,
     train_size = 0.8)
-
+#하이트랑 삼성을 tts를 통해서 x와y로 분리시킨다. 
+# print(x_train)
 from sklearn.preprocessing import StandardScaler
 
 scaler = StandardScaler()
 scaler.fit(hite)
 hite_scaled = scaler.transform(hite)
-print(hite_scaled)
+# print(hite_scaled)
 
 from sklearn.decomposition import PCA
 
 pca = PCA(n_components=1)
 pca.fit(hite_scaled)
 hite_pca = pca.transform(hite_scaled)
-print(hite_pca)
-
-
+# print(hite_pca)
+#하이트는 현재 열이 5개이고 삼성은 하나인데 pca를 통해서 하이트의 열을 압축해준다. n_component가 총 몇개로 압축시킬건지를 알려주는것
 
 
 #자르기
 samsung = (split_x(samsung, size))
+print('samsung',samsung)
 print(samsung.shape) #(504, 6)
 #여기서 6은 6일치씩 자른다는 뜻이다. 
 #삼성만 x와 y를 분리해주면 된다.
@@ -118,3 +120,4 @@ model.summary()
 model.compile(optimizer = 'adam', loss= 'mse', metrics= ['mse'])
 model.fit([x_sam, x_hit], y_sam, validation_split= 0.2, epochs= 101)
 
+'''

@@ -9,7 +9,8 @@ datasets2 = pd.read_csv("./data/csv/삼성전자 주가.csv",
                         index_col = 0, 
                         header = 0,encoding = 'cp949', sep =',')
 
-print(datasets1)       
+print(datasets1.head(508))       
+
 print(datasets1.shape) 
 print(datasets2)       
 print(datasets2.shape)        
@@ -47,7 +48,7 @@ for i in range(len(datasets1.index)): # 행 만큼 반복 508-1 총  0 ~ 507
 print(datasets1)
 print(datasets1.shape)
 
-'''
+
 #samsung
 for i in range(len(datasets2.index)): 
     for j in range(len(datasets2.iloc[i])):

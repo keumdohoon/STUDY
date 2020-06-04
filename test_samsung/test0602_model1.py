@@ -15,10 +15,10 @@ from sklearn.decomposition import PCA
 
 def split_x(seq, size):
     aaa = []
-    for i in range(len(seq) - size + 1):
-        subset = seq[i:(i+size)]
-        aaa.append([j for j in subset])
-    #print(type(aaa))
+    for i in range(len(seq) - size + 1):    #ledn(seq)= 508, sixe= 6 so the total data would be, for i in range(508-6+1)=503
+        subset = seq[i:(i+size)]            #we will input 0~503 one by one in i, when i is 0 seq[0:(0+6)]=seq[0:6] = 0~5 = 0,1,2,3,4,5
+        aaa.append([j for j in subset])     #will input the subset in j and by using append i will add this into aaa 
+    #print(type(aaa))                       #by using return i will repeat the following process for all 0~503
     return np.array(aaa)
 
 size = 6
