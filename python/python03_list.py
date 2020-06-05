@@ -43,6 +43,9 @@ a = [1, 2, 3]
 a.append(4)#4를 뒤에 더해주는것
 print(a)
 
+tmp = a.pop()
+print("pop 확인 : ", a, tmp)
+
 
 # a = a.append(5)  #오류
 
