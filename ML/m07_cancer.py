@@ -47,7 +47,7 @@ x = scale.fit_transform(x)
 model = RandomForestClassifier()  #acc =  0.9561403 ,R2 :  0.8095556
 # model = RandomForestRegressor()
 
-
+#이렇게 여러가지 결과치가 나오긴하는데 우리는 이중에서 어느결과치를 사용할지를 잘 고민해야한다. 
 
 #3. 실행
 model.fit(x_train,y_train)
