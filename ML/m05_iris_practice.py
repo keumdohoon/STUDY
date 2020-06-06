@@ -53,12 +53,13 @@ acc = accuracy_score(y_test, y_predict)
 r2 = r2_score(y_test, y_predict)
 
 #4. Evaluation 
-
-
-
-
-
 print(x_test, "의 예측 결과 :", y_predict)
 print('r2 :', r2)
 print("acc = ", acc)
 print("score : ", score)
+
+
+
+
+#ML 에서는 score이라는 함수를 써주면 자기가 자동으로 결과치가 acc나r2둘중에 선형인지 분류형인지를 알아서 계산해주고 이를 제일 잘 맞는 결과치를 
+#내어준다. 여기서 우리가 R2와 ACC를 찍어주고 Score도 해 준이유는 3개의 결과치를 비교하여 Score가 R2나 ACC중에 어떠한 결과치를 내어주게 되었는지를 비교해주기 위함이다. 
