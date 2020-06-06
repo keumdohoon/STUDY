@@ -35,16 +35,10 @@ from pandas import read_csv
 import numpy as np
 wine = np.genfromtxt('./data/csv/winequality-white.csv',delimiter=';')
 print(wine)
+print(type(wine))   #<class 'numpy.ndarray'>
+
+#이 방식을 사용해주면 CSV파일을 불러옴과 동시에 numpy방식으로 바꿔주고 코마나 세미콜론도 동시에 없애줘서 매우좋은 방법이다. 
 '''
-print(wine) #[4898 rows x 12 columns]
-# import numpy as np
-# np.genfromtxt('./data/csv/winequality-white.csv',delimiter=';',dtype=None)
-
-
-print(type(wine))#<class 'numpy.ndarray'>
-
-
-
 #파일형식 유지하며 csv파일 읽어들이기
 # Load CSV using Pandas
 # import pandas
@@ -57,12 +51,18 @@ print(wine.shape)  #(4899, 12)
 
 
 
-#이거는 pd에서만 쓰는 슬라이싱 방식
+#이거는 판다스 에서만 쓰는 슬라이싱 방식 iloc 과 loc 방식이 있다. 
+#loc 방식은 그 자리에 헤더와 인덱스의 이름을 기입해주는 방식이고, iloc 은 그 인덱스 자리를 의미하는 것이기에 더욱 편한것을 사용하면 된다. 
+#이렇게 location을해서 데이터를 나누어주기 전에 현재 데이터의 형태가 넘파이인지 아니면 스트링인지를 잘 파악해주어야 나중에 오류가 적다. 
 # x_wine = wine.iloc[:,0:12]
 # x_wine.head(12)
+#head는 총 몇개의 종류가 가 있는지를 말한다. 
+
+
+
 # print(x_wine.shape)
 # y_wine = wine.iloc[:,12]
-# y_wine.head(12)
+y_wine.head(12)
 # print(y_wine.shape)
 
 
@@ -111,7 +111,7 @@ print(x)
 # model = LinearSVC()    #acc =  0.903508, R2 : 0.5810223855
 # model = SVC()    #acc =  0.894736, R2 : 0.54293
 # model = KNeighborsClassifier()   #acc = 0.9210526, R2 : 0.65720
-model = KNeighborsRegressor()
+# model = KNeighborsRegressor()
 # model = RandomForestClassifier()  #acc =  0.9561403 ,R2 :  0.8095556
 # model = RandomForestRegressor()
 
