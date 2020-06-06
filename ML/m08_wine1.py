@@ -17,9 +17,6 @@ data = pd.read_csv('./data/csv/winequality-white.csv',
                             sep=';',
                             encoding='CP949')
 
-# 'fixed acidity;"volatile acidity";"citric acid";"residual sugar";
-# "chlorides";"free sulfur dioxide";"total sulfur dioxide";"density";
-# "pH";"sulphates";"alcohol";"quality"'
 
 x_data = data.iloc[:, :-1].values
 y_data = data.loc[:, 'quality'].values
