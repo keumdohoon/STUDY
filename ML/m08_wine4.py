@@ -25,7 +25,7 @@ for i in list(y):
         newlist +=[1]
     else:
         newlist +=[2]
-
+# 이런식으로 나누어주면 9등급이 3등급안으로 몰리게 된다. 
 y = newlist
 
 from sklearn.model_selection import train_test_split
