@@ -21,7 +21,7 @@ print(y)
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size =0.2, random_state = 66)
 # warnings.filterwarning('ignore')
 
-
+#알고리즘을 사용하여 여러 모델을 이 명령어 하나로 돌릴수 있게 된다. 그중에서 결과값이 가장 잘 나온것들을 골라주면 되는 것이다. 
 allAlgorithms = all_estimators(type_filter = 'classifier')
 
 for (name, algorithm) in allAlgorithms:
