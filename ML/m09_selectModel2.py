@@ -1,3 +1,5 @@
+#전과 같은 모델에 보스턴 데이타를 추가해준 것이다. 
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
