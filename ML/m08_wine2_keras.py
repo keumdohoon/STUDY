@@ -9,12 +9,25 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 
 # 1. data
-x_data = np.load('./data/npy/x_data.npy')
-y_data = np.load('./data/npy/y_data.npy')
+import numpy as np
+wine = np.genfromtxt('./data/csv/winequality-white.csv',delimiter=';')
+print(wine)
 
-y_data = np_utils.to_categorical(y_data)
+x_wine = wine[:,0:11]
+y_wine = wine[:,11]
 
-x_train,x_test, y_train,y_test = train_test_split(x_data,y_data,
+
+# print(y_wine)
+
+print(x_wine.shape)#(4899, 11)
+print(y_wine.shape)#(4899,)
+
+
+
+# y_wine = np_utils.to_categorical(y_wine)
+
+
+x_train,x_test, y_train,y_test = train_test_split(x_wine,y_wine,
                                                   random_state = 66, shuffle=True,
                                                   train_size=0.9)
 
