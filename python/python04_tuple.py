@@ -16,4 +16,5 @@ print(a + b)
 #그런데 튜플은 자주 안쓰고 가장 많이 쓰는 것은 리스트이다datetime A combination of a date and a time. Attributes: ()
 
 ###print(a - 3)
-###삭제나 수정이 되지 않기에 불가능하다. 오류가 나온다. 
+###삭제나 수정이 되지 않기에 불가능하다. 오류가 나온다.
+# 
