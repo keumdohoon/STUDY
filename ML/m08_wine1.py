@@ -23,7 +23,7 @@ y_data = data.loc[:, 'quality'].values
 
 print("x_data.shape : ",x_data.shape)
 print("y_data.shape : ",y_data.shape)
-
+#이 방식은 판다스의 형태일때 사용 가능한 슬라이싱 방식이다 판다스에서는 데이터의 형태가 자유로워서 제약이 없다, 처음부터끝까지 케라스를 썩지 않고 판다스만 사용하여도 된다. 
 x_train,x_test, y_train,y_test = train_test_split(x_data,y_data,
                                                   random_state = 66, shuffle=True,
                                                   train_size=0.8)
