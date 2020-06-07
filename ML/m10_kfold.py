@@ -31,6 +31,8 @@ print(y)
 
 kfold = KFold(n_splits=5, shuffle=True) # 5등분을 하겠다 데이터를 조각내고 각 조각들을 val에 사용함 5번 실행하게됨
 # kfold가 어떻게 돌아가는지 알고 있자 
+#예제로 총 데이터셋의 갯수가 200이고 k를 5로 준다면 총 10조각의 하나에 20개의 데이터가 있는 블록들이 생긴다. 
+#이 블록들 각각을 다 한번씩 test set으로 설정해두고 나머지 9 개를 train set으로 설정하여 연산한다면 총 10번계산을 하게 되는 것이고 그 값의 평균 가중치를 가져가게 되는 것이다. 
 
 allAlgorithms = all_estimators(type_filter='classifier') # iris에 대한 모든 모델링
 
