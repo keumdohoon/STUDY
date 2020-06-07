@@ -47,7 +47,7 @@ print("최적의 매개변수 :", model.best_estimator_)
 y_pred = model.predict(x_test)
 print("최종 정답률 = ", accuracy_score(y_test, y_pred))
 
-
+#이 밑에 표를 보면서 어떠한 것들을 쓸지 decision tree를 통해서 나오기때문에 이게 random forest의 가장 큰 장점이다
 #가장 좋은 결과 값을 준 파라미터의 갯수를 알 수 있다 어떤 커널과 어떤 C를 사용해야지 좋은 값이 나오는지를 알 수 있는 것이다.
 # , criterion='gini',
 #             max_depth=3, max_features='auto', max_leaf_nodes=None,        
