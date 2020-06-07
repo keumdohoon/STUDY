@@ -15,7 +15,7 @@ print(wine)
 
 x_wine = wine[:,0:11]
 y_wine = wine[:,11]
-
+#d이 슬라이싱 방식은 numpy형식일때 사용 된다, 우리가 이미 numpy로 바꾸어서 정보를 가져와서 이렇게 사용할수 있다.
 
 # print(y_wine)
 
