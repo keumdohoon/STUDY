@@ -25,6 +25,8 @@ Parameters = [
     {"C": [1, 10, 100, 1000], "kernel" :["rbf"], "gamma": [0.001,0.0001]},
     {"C": [1, 10, 100, 1000], "kernel" :["sigmoid"], "gamma": [0.001, 0.0001]}
 ]
+#C 안에서 4개의 옵션 1, 10, 100, 1000 이 있고 kernel 안에는 linear, rbf, sigmoid총 3개가 있다, gamma안에는 0.001, 0.0001이렇게 두개가 있으니
+#4*3*3를 하면 총 24개의 옵션이 생기고 우리는 그 중에서 제일 잘 나온 값을 고르는 것이다. 
 #c에 1이 커넬 linear로 나오고 10이 kernel 에 linear로 나오고
 kfold = KFold(n_splits = 5, shuffle=True)
 
