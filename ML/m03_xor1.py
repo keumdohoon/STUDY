@@ -9,6 +9,7 @@ from sklearn.preprocessing import FunctionTransformer
 x_data = [[0,0],[1,0],[0,1],[1,1]]
 y_data = [0,1,1,0]
 #0과 0이들어가서 0이 나오고 1과1이 들어가서 1이 나왔다. 
+
 #2. 모델
 model = LinearSVC()
 
@@ -27,3 +28,4 @@ print("acc = ", acc)
 
 
 #결과값이 0.5로 나오는데 이를 1로 만들어라
+#다음 모델로....
