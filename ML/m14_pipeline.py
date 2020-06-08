@@ -26,10 +26,11 @@ parameter = [{"svm__C":[1, 10, 100, 1000],'svm__kernel':['linear']},
 #2. 모델
 model = SVC()
 
-from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-pipe = Pipeline([("scaler", MinMaxScaler()), ('svm', SVC())])
+# pipe = Pipeline([("scaler", MinMaxScaler()), ('svm', SVC())])
+pipe = make_pipeline(MinMaxScaler(), SVC())
 pipe.fit(x_train, y_train)
 print("acc : ", pipe.score(x_test, y_test))
 #MinMax scaler을 이용하여 한방에 전처리까지 다 해줬다. 
@@ -44,6 +45,11 @@ model.fit(x_train, y_train)
 acc = model.score(x_test, y_test)
 print('최적의 매개 변수 = ', model.best_estimator_)
 print("acc : ", acc)
+
+
+from sklearn as sk
+print("sklearn :", sk.__version__)
+
 
 
 
