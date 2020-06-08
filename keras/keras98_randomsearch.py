@@ -1,6 +1,8 @@
 #원래는 randomizedSearchCV로 변환, 파일 keras97불러오기. 
 
 
+#score 을 추가해준다. 
+
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.models import Sequential, Model
@@ -78,7 +80,7 @@ from keras.wrappers.scikit_learn import KerasClassifier
 #케라스건 사이킷런이건 분류와 회기를 항상 잃지 말고
 #케라스에서 wrapping을 해주는 이유는 사이킷런에서 해주기 위해서 
 model= KerasClassifier(build_fn= build_model, verbose= 1)
-#모델을 wrapping 해 주는 것이다. 
+#우리가 만들어둔 모델을 wrapping 해 주는 것이다. kerasClassifier 모델을 이렇게 만들어주는 것이다. 
 hyperparameters = create_hyperparameters()
 #help buiild a hyper parameters , 위데짜놓은 create_hyperparameters()를 hyperparamer 에 대입시켜준다. 
 
@@ -87,12 +89,29 @@ hyperparameters = create_hyperparameters()
 
 
 #여기서 부터가 모델 핏 부분이 되는 것이다. 
+
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(model, hyperparameters, cv = 3)
+search = RandomizedSearchCV(model, hyperparameters, cv = 3 , n_jobs =-1)
 search.fit(x_train, y_train)
 
 print(search.best_params_)
+
 #이 폴더에서 항상 주의해야할것들은 소스와 하이퍼 파라미터
+
+
+
 
 # acc: 0.9311
 # {'optimizer': 'rmsprop', 'drop': 0.1, 'batch_size': 50}
+
+
+#score
+#score 을 추가하여 작성 
+acc = search.score(x_test, y_test, verbose=0)
+print(search.best_params_)
+print("acc :", acc)
+# acc: 0.9143
+# {'optimizer': 'adadelta', 'drop': 0.30000000000000004, 'batch_size': 20}  
+# Traceback (most recent call last):
+#   File "d:\Study\Bitcamp\keras\keras98_randomsearch.py", line 105, in <module>
+#     print("최적의 매개변수 :", model.best_params_)
