@@ -47,8 +47,6 @@ print('최적의 매개 변수 = ', model.best_estimator_)
 print("acc : ", acc)
 
 
-from sklearn as sk
-print("sklearn :", sk.__version__)
 
 
 
