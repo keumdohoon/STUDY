@@ -47,7 +47,7 @@ print(y_train.shape)
 #위에 모델을 만들어주기 위해서 모델, 파라미터, cv를 각각 만들어준다. 
 #2. 모델
 #gridsearch 에 있는 parameter으의 순서를 보면 
-def build_model(drop=0.5, optimizer= 'adam'):
+def build_model(drop=0.5, optimizer= 'adam'):#초기값이 없으면 돌아가질 않는다. 
     
     input1= Input(shape= (28,28,1))
     Conv2d1 = Conv2D(filters= 15, kernel_size=3, padding="same", activation="relu")(input1)
@@ -111,7 +111,9 @@ hyperparameters = create_hyperparameters()
 #여기서 부터가 모델 핏 부분이 되는 것이다. 
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(model, hyperparameters, cv = 3 , n_jobs =-1)
+search = RandomizedSearchCV(model, hyperparameters, cv = 3)
+
+#여기서부터 fit
 search.fit(x_train, y_train)
 
 print(search.best_params_)
@@ -127,9 +129,9 @@ print(search.best_params_)
 
 #score
 #score 을 추가하여 작성 
-acc = search.score(x_test, y_test, verbose=0)
+score = search.score(x_test, y_test, verbose=0)
 print(search.best_params_)
-print("acc :", acc)
+print("acc :", score)
 # acc: 0.9143
 # {'optimizer': 'adadelta', 'drop': 0.30000000000000004, 'batch_size': 20}  
 # Traceback (most recent call last):
