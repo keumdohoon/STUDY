@@ -99,7 +99,7 @@ from sklearn.metrics import r2_score
 r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
-''' ㅅㅂ
+''' 
 RMSE :  5.3195020211510675
 R2 :  0.6614488236911255
 '''
