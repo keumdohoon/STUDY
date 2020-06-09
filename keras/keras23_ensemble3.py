@@ -20,7 +20,7 @@ print("\nx2_train\n",x2_train)
 print("\nx2_test\n",x2_test)
 print("\ny_train\n",y_train)
 print("\ny_test\n",y_test)
-'''
+
 # from sklearn.model_selection import train_test_split
 # y1_train, y1_test = train_test_split(
 # y1, Shuffle=False, train_size = 0.8)
@@ -122,4 +122,3 @@ print("x_test:", x_test)
 print("y_train:", y_train)
 print("y_test:", y_test)
 #print("x_val :", x_val)
-'''
