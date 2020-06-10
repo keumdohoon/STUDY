@@ -70,7 +70,7 @@ def create_hyperparameters():
     optimizers = ['rmsprop', 'adam', 'adadelta']
     dropout = np.linspace(0.1,0.5, 5)
     return{"batch_size" : batches, "optimizer" : optimizers,
-        "drop" :dropout}
+        "drop" :linspace}
         #위에 딕셔너리형태이다. 파라미터에 들어가는 매개변수 형테는 딕셔너리 형태이다. 그래서 무조건 딕셔너리 형태로 맞춰줘야한다. 케라스가 아니라 싸이킷런에 맞는 모델로 래핑을 만들어주기 위해서 이런식으로 해준다. 
 #k fold에서는 숫자만 들어가면 되는것이니 그것도 이미 준비 된것이다. 
 #여기다가 에포도 넣을수 있고 노드의 갯수도 변수명을 넣어주고 하이퍼 파라미터에 넣을수 있고 activation도 넣어 줄 수 있다. 여기서 원하는건 다 넣을수 있음. 
