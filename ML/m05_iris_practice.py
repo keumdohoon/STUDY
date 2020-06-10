@@ -10,10 +10,6 @@ from sklearn.ensemble import RandomForestRegressor
 from keras.utils import np_utils
 from sklearn.preprocessing import StandardScaler
 #1. Data 
-
-
-
-
 dataset = load_iris()
 print('data: ', dataset.data)
 print('target: ', dataset.target)
@@ -23,17 +19,16 @@ print(x.shape)
 print(y.shape)
 print(x)
 print(y)
-
-
+#데이터를 불러와 준다. 엑스를 데이터에 와이를 타겟으로해서 설정해준다. 
 
 y = np_utils.to_categorical(y)
-
 x_train, x_test,  y_train, y_test = train_test_split(
     x, y, shuffle= True, random_state = 66, train_size = 0.5)
-
 scale = StandardScaler()
 x = scale.fit_transform(x)
-
+#와이를 카테고리컬로해서 원핫 인코딩을 해준다.
+# 스텐다드 스케일러로 인해서 스케일 핏을 해준다. 
+#  
 
 # model = LinearSVC()
 # model = SVC()
@@ -43,6 +38,8 @@ model = RandomForestClassifier()
 # model = RandomForestRegressor()
 model.fit(x_train, y_train)
 score = model.score(x_test, y_test)
+#모델을 랜덤 포레스트 클레시파이어로 설정해주고 모델 핏을 통해서 엑스트레인과 와이 트레인 을 핏해준다.
+# 모델 스코어를 통해서 엑스 테스트와 와이테스트를 스코어를 구해준다. 
 
 
 #3. activate
