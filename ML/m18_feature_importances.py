@@ -27,4 +27,3 @@ def plot_feature_importances_cancer(model) :
     plt.ylim(-1, n_features)
 plot_feature_importances_cancer(model)
 plt.show()
-© 2020 GitHub, Inc.
