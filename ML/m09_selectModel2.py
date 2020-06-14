@@ -2,22 +2,21 @@
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, r2_score
 from sklearn.utils.testing import all_estimators
 import warnings
 from sklearn.datasets import load_boston
-from sklearn.metrics import r2_score
 
 warnings.filterwarnings('ignore')
 
 
 
-boston = load_boston()
-print(boston)
-x = boston.data
-y = boston.target
+# boston = load_boston()
+# print(boston)
+# x = boston.data
+# y = boston.target
 
-# boston = pd.read_csv('./data/csv/boston_house_prices.csv', header = 0)
+boston = pd.read_csv('./data/csv/boston_house_prices.csv', header = 1)
 
 
 # print(boston)
@@ -26,8 +25,8 @@ y = boston.target
 
 
 
-# x = boston.iloc[:, 0:13]
-# y = boston.iloc[:, 13]
+x = boston.iloc[:, 0:13]
+y = boston.iloc[:, 13]
 
 print(x)
 print(y)
