@@ -47,7 +47,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.8, rand
 parameters = {'n_estimators' : [1, 50, 100],
             "max_depth":[2, 6, 8],
             'min_child_weight' : [1, 0.1, 0.3],
-            'eta': [0,2],
+            'eta': [0,2,10],
             'gamma' : [0,1,2],
             'max_delta_step' : [0,1],
             'subsample' :[0.5, 0.6],
@@ -55,18 +55,20 @@ parameters = {'n_estimators' : [1, 50, 100],
             'colsample_bylevel' :[0,1],
             'lambda' :[1, 0.5,1.5],
             'alpha' : [0,1],
-            'scale_pos_weight' : [1, 2]}
+            'scale_pos_weight' : [1, 2],
+            'L1':[0]
+            }
 
 
-model1 = RandomizedSearchCV(XGBRFRegressor(), parameters, cv =5)
-model2 = MultiOutputRegressor(model1)
+model = RandomizedSearchCV(XGBRFRegressor(n_estimators=1000, penalty=('l1', 'l2')), parameters, cv =5)
+model = MultiOutputRegressor(model)
 warnings.filterwarnings('ignore')
-model2.fit(x_train, y_train)
+model.fit(x_train, y_train)
 
 
-score = model2.score(x_test,y_test)
+score = model.score(x_test,y_test)
 print(score)
-y4 = model2.predict(test.values)
+y4 = model.predict(test.values)
 
 #여기서 definition과 for 문을 써준 이유는 GB와 XGB에서는 스칼라 형태일때만 정보가 받아지기 때문에 저 두개의 모델을 구동시키기 위해서는 
 #현재 가지고 있는 데이터셋을 총 4번(4컬럼이니까) 으로 잘라줘서 스칼라의 형태로 만들어주는 것이다 . 이 for문은 그것을 진행해주기 위해서 있는것이다.
@@ -75,15 +77,15 @@ y4 = model2.predict(test.values)
 # y_predict = tree_fit(y_train, y_test)
 
 print(y4.shape)
-print("최적의 매개변수 :", model1.best_parameters_)
-'''
+# print("최적의 매개변수 :", model1.best_parameters_)
+
 # submission
 a = np.arange(10000,20000)
 submission = pd.DataFrame(y4, a)
 submission.to_csv('D:/Study/Bitcamp/Dacon/comp1/sub_XGB.csv',index = True, header=['hhb','hbo2','ca','na'],index_label='id')
 
 # print(model.feature_importances_)
-
+'''
 
 ## feature_importances
 def plot_feature_importances(model):
