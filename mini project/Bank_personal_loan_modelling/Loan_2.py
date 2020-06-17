@@ -14,14 +14,16 @@ data = pd.read_csv('./data/csv/Bank_personal_loan_modelling - Clean Data (1).csv
                             header=0,
                             sep=',',
                             encoding='CP949')
+print('data',data.shape)
 
 feature=data.drop("Personal Loan",axis=1)
 target=data["Personal Loan"]
-
 loans = feature.join(target)
+
 print(loans)
 print(loans.head(5))
 print(loans.tail(5))
+print(loans.shape)
 
 listItem = []
 for col in loans.columns :
@@ -52,11 +54,13 @@ print(dfDesc)
 
 
 # Missing value visualization 비어 있는 값들을 이렇게 히트맵으로 보여준다.
-hitmap =sns.heatmap(loans.isna(),yticklabels=False,cbar=False,cmap='viridis')
-print(hitmap)
+sns.heatmap(loans.isna(),yticklabels=False,cbar=False,cmap='viridis')
+
 
 loans.describe().transpose()
-#이상치를 비주얼화 해준다 
+print('loans',loans)
+
+#이상치를 비주얼화 해준다. 
 outvis = loans.copy()
 def fungsi(x):
     if x<0:
@@ -66,21 +70,24 @@ def fungsi(x):
     
 outvis["Experience"] = outvis["Experience"].apply(fungsi)
 
-hitmap2 = sns.heatmap(outvis.isnull(),yticklabels=False,cbar=False,cmap='viridis')
-print(hitmap2)
+sns.heatmap(outvis.isnull(),yticklabels=False,cbar=False,cmap='plasma')
 
 
-#데이터에 있는 loans를 education으로 그룹바이 시켜주고 experience
+
+#데이터에 있는 loans를 education을 기준으로 그룹바이 시켜주고 experience의 평균만을 가져와서 비교해준다. 
 pd.DataFrame(loans.groupby("Education").mean()["Experience"])
 
-#데이터에 있는 loans를 age로 그룹바이 시켜주고 experience
+
+
+
+#데이터에 있는 loans를 age을 기준으로 그룹바이 시켜주고 experience의 평균의 마지막 8개를 가져와서 비교해준다. 
 pd.DataFrame(loans.groupby("Age").mean()["Experience"]).tail(8)
 #age와 exp를 가지고 플롯을 그려준다
 pltdf = pd.DataFrame(loans.groupby("Age").mean()["Experience"]).reset_index()
 sns.lmplot(x='Age',y='Experience',data=pltdf)
 plt.ylabel("Experience (Average)")
 plt.title("Average of Experience by Age")
-# plt.show()
+plt.show()
 
 pd.DataFrame(loans[loans["Experience"]<0][["Age","Experience"]].sort_values("Age")).head()
 
@@ -150,7 +157,7 @@ mask[np.triu_indices_from(mask)] = True
 
 plt.figure(figsize=(10, 10))
 print(sns.heatmap(corr, mask=mask,annot=True,square=True))
-# plt.show()
+plt.show()
 
 
 
@@ -170,23 +177,23 @@ mask[:12,:]=1
 plt.figure(figsize=(10, 10))
 with sns.axes_style("white"):
     sns.heatmap(loans_corr, annot=True,square=True,mask=mask)
-# plt.show()
+plt.show()
 
 sns.distplot(feature["Mortgage"])
 plt.title("Mortgage Distribution with KDE")
-# plt.show()
+plt.show()
 
 # Irregular value handling feature 2 (extreme positive skewed data)
 SingleLog_y = np.log1p(feature["Mortgage"])              
 sns.distplot(SingleLog_y, color ="r")
 plt.title("Mortgage Distribution with KDE First Transformation")
-# plt.show()
+plt.show()
 
 
 DoubleLog_y = np.log1p(SingleLog_y)
 sns.distplot(DoubleLog_y, color ="g")
 plt.title("Mortgage Distribution with KDE Second Transformation")
-# plt.show()
+plt.show()
 
 loans["Mortgage"] = DoubleLog_y
 
@@ -210,14 +217,14 @@ sns.distplot(loans[loans["Personal Loan"] == 0]['Income'], color = 'r',label='Pe
 sns.distplot(loans[loans["Personal Loan"] == 1]['Income'], color = 'b',label='Personal Loan=1',kde=False)
 plt.legend()
 plt.title("Income Distribution")
-# plt.show()
+plt.show()
 
 plt.figure(figsize=(10,6))
 sns.distplot(loans[loans["Personal Loan"] == 0]['CCAvg'], color = 'r',label='Personal Loan=0',kde=False)
 sns.distplot(loans[loans["Personal Loan"] == 1]['CCAvg'], color = 'b',label='Personal Loan=1',kde=False)
 plt.legend()
 plt.title("CCAvg Distribution")
-# plt.show()
+plt.show()
 
 
 
@@ -226,27 +233,27 @@ sns.distplot(loans[loans["Personal Loan"] == 0]['Experience'], color = 'r',label
 sns.distplot(loans[loans["Personal Loan"] == 1]['Experience'], color = 'b',label='Personal Loan=1',kde=False)
 plt.legend()
 plt.title("Experience Distribution")
-# plt.show()
+plt.show()
 
 
 sns.countplot(x='Securities Account',data=loans,hue='Personal Loan')
 plt.title("Securities Account Countplot")
-# plt.show()
+plt.show()
 
 sns.countplot(x='Family',data=loans,hue='Personal Loan')
 plt.title("Family Countplot")
-# plt.show()
+plt.show()
 
 
 sns.boxplot(x='Education',data=loans,hue='Personal Loan',y='Income')
 plt.legend(loc='lower right')
 plt.title("Education and Income Boxplot")
-# plt.show()
+plt.show()
 
 sns.boxplot(x='Family',data=loans,hue='Personal Loan',y='Income')
 plt.legend(loc='upper center')
 plt.title("Family and Income Boxplot")
-# plt.show()
+plt.show()
 
 
 feature = loans.drop(["ID","Personal Loan"],axis=1)
@@ -269,7 +276,7 @@ scaled_features = pd.DataFrame(scaler.transform(feature[colscal]),columns=colsca
 
 feature =feature.drop(colscal,axis=1)
 feature = scaled_features.join(feature)
-
+#modelling
 from sklearn.model_selection import train_test_split,cross_val_score
 X_train, X_test, y_train, y_test = train_test_split(feature,target,
                                                     test_size=0.20,
@@ -299,7 +306,8 @@ print('Accuracy :',accuracy_score(y_test, predict))
 print('Matthews Corr_coef :',matthews_corrcoef(y_test, predict))
 print("\nCross Validation Recall :",score1.mean())
 # print("Cross Validation Roc Auc :",score2.mean())
-'''
+########################################
+
 from imblearn.over_sampling import RandomOverSampler
 
 ros = RandomOverSampler(random_state=101)
@@ -390,4 +398,3 @@ coef1 = pd.Series(xgb.feature_importances_,feature.columns).sort_values(ascendin
 pd.DataFrame(coef1,columns=["Features"]).transpose().plot(kind="bar",title="Feature Importances") #for the legends
 
 coef1.plot(kind="bar",title="Feature Importances")
-'''
