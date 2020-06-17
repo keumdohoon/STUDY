@@ -65,7 +65,7 @@ model.compile(loss = 'categorical_crossentropy',
 early_stopping = EarlyStopping(monitor='loss', patience='30', mode='auto' )
 model.fit(x_train, y_train, epochs = 1, batch_size = 51, validation_split=0.2, verbose=2, callbacks=[early_stopping])
 
-model.save('./model/model_test0t1.h5')
+# model.save('./model/model_test0t1.h5')
 model.save_weights('./model/test_weight1.h5')
 
 #4. 예측
