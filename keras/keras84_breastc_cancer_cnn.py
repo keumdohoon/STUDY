@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from keras.layers import Conv2D, Dense, Dropout, Input, Flatten
 from keras. models import Model, Sequential
-
+from keras.layers import Dense, LSTM, Dropout, Conv2D, MaxPooling2D, Flatten
 
 
 
@@ -101,41 +101,63 @@ print(y_test.shape)  #(114,)
 # model.summary()
 
 
-input1 = Input(shape=(1, 1,30))
-conv2d = Conv2D(32, (2, 2), activation='elu', padding='same')(input1)
-dense1_2 = Dense(24, activation='elu')(conv2d)
-drop1 = Dropout(0.2)(dense1_2)
-conv1 = Flatten()(drop1)
-dense1_2 = Dense(20, activation='elu')(conv1)
-dense1_2 = Dense(10, activation='elu')(dense1_2)
-drop1 = Dropout(0.2)(dense1_2)
+# input1 = Input(shape=(1, 1,30))
+# conv2d = Conv2D(32, (2, 2), activation='elu', padding='same')(input1)
+# dense1_2 = Dense(24, activation='elu')(conv2d)
+# drop1 = Dropout(0.2)(dense1_2)
+# conv1 = Flatten()(drop1)
+# dense1_2 = Dense(20, activation='elu')(conv1)
+# dense1_2 = Dense(10, activation='elu')(dense1_2)
+# drop1 = Dropout(0.2)(dense1_2)
 
-dense1_2 = Dense(80, activation='elu')(drop1)
-drop1 = Dropout(0.2)(dense1_2)
+# dense1_2 = Dense(80, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(dense1_2)
 
-dense1_2 = Dense(14, activation='elu')(drop1)
-drop1 = Dropout(0.2)(dense1_2)
+# dense1_2 = Dense(14, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(dense1_2)
 
-dense1_2 = Dense(54, activation='elu')(drop1)
-drop1 = Dropout(0.2)(dense1_2)
+# dense1_2 = Dense(54, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(dense1_2)
 
-dense1_2 = Dense(50, activation='elu')(drop1)
-drop1 = Dropout(0.2)(dense1_2)
-output1_2 = Dense(30, activation='elu')(drop1)
-drop1 = Dropout(0.2)(output1_2)
+# dense1_2 = Dense(50, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(dense1_2)
+# output1_2 = Dense(30, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(output1_2)
 
 
-output1_2 = Dense(30, activation='elu')(drop1)
-drop1 = Dropout(0.2)(output1_2)
+# output1_2 = Dense(30, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(output1_2)
 
-output1_2 = Dense(14, activation='elu')(drop1)
-drop1 = Dropout(0.2)(output1_2)
+# output1_2 = Dense(14, activation='elu')(drop1)
+# drop1 = Dropout(0.2)(output1_2)
 
-output1_3 = Dense(1, activation='elu')(drop1)
+# output1_3 = Dense(1, activation='elu')(drop1)
 
-model = Model(inputs = input1,
- outputs = output1_3)
-model.summary()
+# model = Model(inputs = input1,
+#  outputs = output1_3)
+# model.summary()
+
+model = Sequential()
+model.add(Conv2D(10,(3, 3), input_shape =(5, 3, 2), activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(MaxPooling2D(pool_size = 2))
+model.add(Conv2D(50,(3, 3), activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(80,(3, 3), activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(100, (3, 3),activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(150, (3, 3),activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(120, (3, 3),activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(80,(3, 3), activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(40,(3, 3), activation = 'relu', padding = 'same'))
+model.add(Dropout(0.2))
+model.add(Conv2D(20,(3, 3),activation = 'relu', padding = 'same'))
+model.add(Flatten())
+model.add(Dense(1, activation = 'sigmoid'))
 
 # 3. 컴파일(훈련준비),실행(훈련)
 from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint
