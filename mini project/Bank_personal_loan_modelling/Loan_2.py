@@ -31,11 +31,12 @@ for col in loans.columns :
                      loans[col].isna().sum(),
                      round((loans[col].isna().sum()/len(loans[col])) * 100,2),
                     loans[col].nunique(),
-                     list(loans[col].sample(5).drop_duplicates().values)]);
+                     list(loans[col].sample(5).drop_duplicates().values)])
 
 dfDesc = pd.DataFrame(columns=['dataFeatures', 'dataType', 'null', 'nullPct', 'unique', 'uniqueSample'],
                      data=listItem)
 print(dfDesc)
+'''
  #데이터 타입과 null과nullpct,(null 인 값이 몇개인지, ),unique, 와 unique sample을 나타내어준다
  #           dataFeatures dataType  ...  unique                         uniqueSample        
  # 0                  Age    int64  ...      40                 [59, 27, 58, 63, 50]        
@@ -398,3 +399,4 @@ coef1 = pd.Series(xgb.feature_importances_,feature.columns).sort_values(ascendin
 pd.DataFrame(coef1,columns=["Features"]).transpose().plot(kind="bar",title="Feature Importances") #for the legends
 
 coef1.plot(kind="bar",title="Feature Importances")
+'''
