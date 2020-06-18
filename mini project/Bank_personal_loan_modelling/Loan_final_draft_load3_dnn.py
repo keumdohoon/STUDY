@@ -80,6 +80,7 @@ output1_3 = Dense(1, activation= 'sigmoid')(drop1)
 
 model = Model(inputs = input1,
  outputs = output1_3)
+model.summary()
 
 # EarlyStopping
 # from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint
@@ -111,6 +112,7 @@ plt.plot(hist.history['acc'], c='black', label ='acc')
 plt.plot(hist.history['val_acc'], c='blue', label ='val_acc')
 plt.ylabel('acc')
 plt.legend()
+plt.show()
 '''
 y_predict = model.predict(x_pred)
 print(y_predict)
