@@ -43,8 +43,10 @@ parameters = {
 #2. model
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint
+pipe = Pipeline([("scaler", MinMaxScaler()), ('xg', XGBClassifier())])  
 
-pipe = Pipeline([("scaler", MinMaxScaler()), ('xg', XGBClassifier())])    
+tb = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True)  
 # pipe = make_pipeline(MinMaxScaler(), RandomForestClassifier())                  
 
 model = RandomizedSearchCV(pipe, parameters , cv = 5)
@@ -56,12 +58,15 @@ model.fit(x_train, y_train)
 #4. evaluate, predict
 acc = model.score(x_test, y_test)
 
-print('최적의 매개변수 = ', model.best_estimator_)               # 매번 훈련마다 최적의 parameter, acc변화함
+
+loss, acc = model.score(x_test, y_test)
+print('loss : ', loss)
 print('acc : ', acc)
 
+y_predict = model.predict(x_test)
+print(y_predict)
 
-y_predict = model.predict(x_pred)
-print('y_predict',y_predict)
+'''
 
 from sklearn.metrics import mean_squared_error
 def RMSE(y_test, y_predict):
@@ -72,3 +77,4 @@ print("RSME:", RMSE(y_test, y_predict))
 from sklearn.metrics import r2_score
 r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)
+'''
