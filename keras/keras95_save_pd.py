@@ -20,7 +20,7 @@ print(datasets.tail())
 print('======================================')
 print(datasets.values)
 #.values= 머신을 돌리기 위해서는 pandas로csv-> numpy로 바꿔줘야하는데 그걸 바꿔주는 것이 .values 이다.
-'''
+
 aaa= datasets.values
 print(type(aaa))
 #type를 프린트해보면 numpy로 바꿔줬다는게 티가 나게 된다. 
@@ -28,4 +28,4 @@ print(type(aaa))
 #넘파이로 저장하시오
 
 np.save('./data/iris_data.npy', arr=aaa)
-'''
+
