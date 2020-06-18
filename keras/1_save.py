@@ -36,7 +36,7 @@ datasets2 = datasets2.sort_values(['일자'], ascending=[True])
 #일자순으로 깔끔하게 나오게 분류해준다.
 print('datasets1: ', datasets1)  #(426, 5)
 print('datasets2', datasets2)
-'''
+
 datasets1 = datasets1.values
 datasets2 = datasets2.values
 #pandas를 numpy로 바꿔준다
@@ -53,4 +53,3 @@ np.save('./data/samsung.npy', arr = datasets2)
 print(datasets1)
 #실행시키면 저장까지 다 한것이다.
  
-'''
