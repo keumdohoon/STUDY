@@ -1,5 +1,5 @@
 #using XGB and GBBooster other than using the for function
-
+#데이콘에 나온 데이터를 기반으로 xgb를 이용한 멀티아웃풋 
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor, XGBRFRegressor
@@ -23,10 +23,11 @@ print('submission.shape: ', submission.shape)    # (10000, 4)   = y_predict
 
 train = train.interpolate()                       
 test = test.interpolate()
-
+#interpolate을 이용하여 nan값을 한번에 처리해준다. 
+#어떻게 채워지는지를 이해하기
 x_data = train.iloc[:, :71]                           
 y_data = train.iloc[:, -4:]
-
+#트레인 데이터 내에서 x와y로 나누어서 훈련시켜주려고 한다. 
 
 x_data = x_data.fillna(x_data.mean())
 test = test.fillna(test.mean())
