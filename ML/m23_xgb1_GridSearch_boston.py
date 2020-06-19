@@ -27,12 +27,13 @@ colsample_bylevel = 0.7
 max_depth = 5
 
 parameters = [
-    {"n_estimators":[1000,2000,3000], "learning_rate":[0.1,0.3,0.01,0.05],
-     "max_depth":[4,5,6]},
-    {"n_estimators":[900,1000,2000], "learning_rate":[0.1,0.01,0.05],
-    "colsample_bytree": [0.6,0.9,1], "max_depth":[4,5,6]},
-    {"n_estimators":[900,2000,1010], "learning_rate":[0.03,0.02,0.3, 0.05],
-    "colsample_bytree": [0.6,0.9,1], "max_depth":[4,5,6], "colsample_bytree":[0.6,0.7,0.9]}]
+    # {"n_estimators":[1000,2000,3000], "learning_rate":[0.1,0.3,0.01,0.05],
+    #  "max_depth":[4,5,6]},
+    {"n_estimators":[1010], "learning_rate":[0.03],
+    "colsample_bytree": [0.6], "max_depth":[4]},
+    # {"n_estimators":[900,2000,1010], "learning_rate":[0.03,0.02,0.3, 0.05],
+    # "colsample_bytree": [0.6,0.9,1], "max_depth":[4,5,6], "colsample_bytree":[0.6,0.7,0.9]}
+    ]
 
 n_jobs = -1
 # 점수:  0.8858573207924959
@@ -63,4 +64,3 @@ print('점수: ', score)
 
 plot_importance(model)
 plt.show()
-#어떤 feature이 중요한지 쉽게 볼수가 있다. 딱 한 줄로 정리가 가능 
