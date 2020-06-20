@@ -11,7 +11,7 @@ from sklearn.svm import SVC
 
 #SVC에 쓰는 하이퍼 파라미터
 #1. 데이터
-iris = pd.read_csv('./data/csv/iris.csv',sep=',',header=0)
+iris = pd.read_csv('./data/csv/iris.csv',header=0)
 
 x = iris.iloc[:, 0:4]
 y = iris.iloc[:, 4]
