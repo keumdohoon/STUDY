@@ -86,7 +86,7 @@ submission = pd.DataFrame(y4, a)
 submission.to_csv('D:/Study/Bitcamp/Dacon/comp1/sub_XGB.csv',index = True, header=['hhb','hbo2','ca','na'],index_label='id')
 
 # print(model.feature_importances_)
-'''
+
 
 ## feature_importances
 def plot_feature_importances(model):
@@ -102,4 +102,3 @@ def plot_feature_importances(model):
 plot_feature_importances(model)
 plt.show()
 
-'''
