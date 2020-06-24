@@ -30,12 +30,8 @@ print("R2 :", score) #R2 : 0.9221188544655419
 thresholds = np.sort(model.feature_importances_)
              #정렬 #중요도가 낮은 것부터 높은것 까지
 
-print(thresholds)   #[0.00134153 0.00363372 0.01203115 0.01220458 0.01447935 0.01479119
-                    #0.0175432  0.03041655 0.04246345 0.0518254  0.06949984 0.30128643, 0.42848358]
-                    #점점 값이 올라가는 오름차순의 형태인걸 확인.
-
-#for문을 전체 컬럼수 만큼 돌리면 총 13번 돌리게 된다. 
-
+print(thresholds)  
+                   
 for thresh in thresholds:     #총 컬럼수 만큼 돌게 된다 빙글빙글. 
     selection = SelectFromModel(model, threshold=thresh, prefit=True)
                                             #median
