@@ -111,7 +111,7 @@ for thresh in thresholds:
     ]
 
 
-    selection_model = GridSearchCV(XGBRegressor(), parameters, cv=5, n_jobs =-1)
+    selection_model = GridSearchCV(XGBRegressor(), parameters, cv=5, n_jobs =5)
     selection_model.fit(select_x_train, y_train)
 
     select_x_test = selection.transform(x_test)
