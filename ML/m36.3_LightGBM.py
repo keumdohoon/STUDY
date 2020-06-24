@@ -16,31 +16,26 @@ datasets = load_iris()
 
 x, y = load_iris(return_X_y=True)# 이렇게 적어줘도됨
 
-print(x.shape) #(569, 30)
-print(y.shape) #(569,)
+print(x.shape) #(150, 4)
+print(y.shape) #(150,)
 
 x_train, x_test, y_train, y_test = train_test_split(x,y,train_size = 0.8,
                                                     shuffle = True, random_state = 66)
 
-model = LGBMClassifier(n_estimators = 300, learning_rate = 0.1, n_jobs= 1)
 
 
-model.fit(x_train, y_train, verbose=True, eval_metric=["multi_logloss","multi_error"],
- eval_set=[(x_train, y_train), (x_test, y_test)] #objective = 'multiclass'
-            ,early_stopping_rounds=20)
-            
+#모델정의
+model = LGBMClassifier(objective = 'multi:softmax',n_estimators = 300, learning_rate = 0.1, n_jobs= 1)
+
+
+model.fit(x_train, y_train)
+score = model.score(x_test, y_test)    
+print('acc :', score)      #acc : 0.9333333333333333  
 #rmse, mae, logloss, error, auc
 #error은 회기 모델 지표가 아니다
 #eval metric을 두가지 이상으로 할때는 리스트 형식으로 쓴다. 
 
-
-y_predict = model.predict(x_test)
-acc = accuracy_score(y_test, y_predict)
-
-
-
-print("r2 Score : %.2f%%" %(acc * 100.0))
-print("r2 :", acc)
+print("r2 Score : %.2f%%" %(score * 100.0))     #r2 Score : 93.33%
 
 # Stopping. Best iteration:
 # [28]    validation_0-rmse:0.06268       validation_1-rmse:0.28525
@@ -55,7 +50,7 @@ import matplotlib.pyplot as plt
 thresholds = np.sort(model.feature_importances_)
              #정렬 #중요도가 낮은 것부터 높은것 까지
 
-print(thresholds)  
+print(thresholds)  #[574 594 634 915]
 
 #for문을 전체 컬럼수 만큼 돌리면 총 13번 돌리게 된다. 
 
@@ -68,19 +63,15 @@ for thresh in thresholds:     #총 컬럼수 만큼 돌게 된다 빙글빙글.
     print(select_x_train.shape) #결과를 보면 컬럼이 13->1로 쭈욱 내려가는데 이것을 컬럼의 중요도가 없는 컬럼을 하나씩 지워주는 것이다.최종 1 
 
     
-    selection_model = LGBMClassifier(n_jobs= -1)
-    selection_model.fit(select_x_train, y_train, eval_metric = ['merror', 'mlogloss'],
-          eval_set = [(select_x_train, y_train), (select_x_test, y_test)])
+    selection_model = LGBMClassifier(objective='multi:softmax', n_estimators=300, learning_rate=0.1, n_jobs= -1)
+    selection_model.fit(select_x_train, y_train, verbose = False, eval_metric = ['multi_logloss', 'multi_error'],
+          eval_set = [(select_x_train, y_train), (select_x_test, y_test)], early_stopping_rounds=20)
+
 
 
     y_predict = selection_model.predict(select_x_test)
 
     acc = accuracy_score(y_test, y_predict)
-    print("R2 : ", acc)
-    import pickle
-    for i in thresholds:
-        pickle.dump(model, open("./model/xgb_save/breast_cancer.pickle{}.dat".format(select_x_train.shape[1]), "wb"))
-
 
     print("Thresh= %.3f,n=%d, R2: %.2f%%" %(thresh, select_x_train.shape[1],
                 acc*100.0))
