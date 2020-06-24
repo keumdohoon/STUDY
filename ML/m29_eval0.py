@@ -19,4 +19,10 @@ Select from model  에 적용시켜라
 4. 결과는 주석으로 소스 하단에 표시 
 
 5. m27~29까지 완벽히 이해할것 
+
+오늘 배운 놈들!
+evaluate
+earlystopping
+verbose
+metrics
 '''
