@@ -34,67 +34,39 @@ print("test", type(test))
 print("test", test.shape)
 print("trainshape", train.shape)
 
-
-
-# print(train)
-# print(train.head(5))
-# print(train.tail(5))
-# print(train.shape)
-
-# listItem = []
-# for col in train.columns :
-#     listItem.append([col,train[col].dtype,
-#                      train[col].isna().sum(),
-#                      round((train[col].isna().sum()/len(train[col])) * 100,2),
-#                     train[col].nunique(),
-#                      list(train[col].sample(5).drop_duplicates().values)])
-
-# dfDesc = pd.DataFrame(columns=['dataFeatures', 'dataType', 'null', 'nullPct', 'unique', 'uniqueSample'],
-#                      data=listItem)
-# print(dfDesc)
-
-
-
-
-
 #x의 
 x1_train = train.iloc[:,1:36]
-y1_train = train.iloc[:,-4:]
 x2_train = train.iloc[:,36:71]
-y2_train = train.iloc[:,-4:]
 x3_train = train.iloc[:,:1]
-y3_train = train.iloc[:,-4:]
-# x1= 트레인 안에서 앞에 35개
-# x2 = 트레인안에서 뒤에 35개
-# x3 = 트레레인 안에서 rho
 
-# test = test.iloc[1:, :]
-# y_pred.to_csv(경로)
-# predict할 sample-submission파일을 만든다. 
-# print(x1_train.shape)
-# print(y1_train.shape)
-# print(x2_train.shape)
-# print(y2_train.shape)
-# print(x3_train.shape)
-# print(y3_train.shape)
+y1_train = train.iloc[:,-4:]
 
 print('test.shape : ', test.shape)#(10000, 71)
 
-print(type(x1_train))
-print(type(y1_train))
+print(type(x1_train))       #<class 'pandas.core.frame.DataFrame'>
+print(type(x1_train))       # #<class 'pandas.core.frame.DataFrame'>
+print(type(y1_train))       #<class 'pandas.core.frame.DataFrame'>
+print(type(y1_train))       # #<class 'pandas.core.frame.DataFrame'>
+
+print(x1_train.shape)  #(10000, 35)
+print(x2_train.shape)  #(10000, 35)
+print(x3_train.shape)  #(10000, 1) #첫번째줄
+print(y1_train.shape)  #(10000, 4)
+
+x1_train = x1_train.fillna(method = 'ffill', limit =2)
+x2_train = x2_train.fillna(method = 'ffill', limit =2)
+
+x1_train = x1_train.fillna(x1_train.mean)
+x2_train = x2_train.fillna(x2_train.mean)
 
 
-x1_train = x1_train.fillna(method = 'bfill')
-x2_train = x2_train.fillna(method = 'bfill')
+test = test.fillna(method ='bfill')
+test = test.values
 
-# test = test.fillna(method ='bfill')
-# test = test.values
-
-# print("np_test print:", type(test))
-# print("np_test print:", test)
-# print("np_test print:", test.shape)
-
+print("np_test print:", type(test)) #numpy
 print('test.shape : ', test.shape)#(10000, 71)
+
+
 
 
 ss = StandardScaler()
@@ -107,39 +79,41 @@ x3_train = ss.transform(x3_train)
 ss.fit(test)
 test = ss.transform(test)
 
+#여기서 x는 넘파이로 바뀌게 된다. 
+#하지만 y는 아직 우리가 바꾸어주지 않았다. 
+print(type(x1_train))       #<class 'pandas.core.frame.DataFrame'>
+print(type(x2_train))       #<class 'pandas.core.frame.DataFrame'>
+print(type(x3_train))       #<class 'pandas.core.frame.DataFrame'>
 
-print('x1.shape : ', x1_train.shape)# (9999, 35)
-print('x2.shape : ', x2_train.shape)# (9999, 35)
-print('x3.shape : ', x3_train.shape)# (9999, 35)
+print(type(y1_train))       #<class 'pandas.core.frame.DataFrame'>
+
+
+print('x1.shape : ', x1_train.shape)#  (10000, 35)
+print('x2.shape : ', x2_train.shape)#  (10000, 35)
+print('x3.shape : ', x3_train.shape)#  (10000, 1)
+print('y1.shape : ', y1_train.shape)#  (10000, 4)
 
 print('test.shape : ', test.shape)#(10000, 71)
 
 
 
-# x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, shuffle=True,  test_size = 0.2, random_state=33)
-x1_train, x1_test, y1_train, y1_test = train_test_split(x1_train, y1_train, shuffle=True, random_state=33,
+from sklearn.model_selection import train_test_split
+x1_train, x1_test, x2_train, x2_test, x3_train, x3_test, y1_train, y1_test = train_test_split(
+    x1_train, x2_train, x3_train, y1_train, shuffle=True,
     train_size = 0.8)
-x2_train, x2_test, y2_train, y2_test = train_test_split(x2_train, y2_train, shuffle=True, random_state=33,
-    train_size = 0.8)
-x3_train, x3_test, y3_train, y3_test = train_test_split(x3_train, y3_train, shuffle=True, random_state=33,
-    train_size = 0.8)
-
-# from sklearn.model_selection import train_test_split
-# x1_train, x1_test, x2_train, x2_test, y_train, y_test = train_test_split(
-#     x1, x2, y, shuffle=True,
-#     train_size = 0.8)
-
 
 print(x1_train.shape) #(8000, 35)
-print(y1_train.shape) #(8000, 4)
-print(x2_train.shape) #(8000, 35)
-print(y2_train.shape) #(8000, 4)
-print(x3_train.shape) #(8000, 1)
-print(y3_train.shape) #(8000, 4)
 print(x1_test.shape)  #(2000, 35)
-print(y1_test.shape)  #(2000, 4)
+
+print(x2_train.shape) #(8000, 35)
 print(x2_test.shape)  #(2000, 35)
-print(y2_test.shape)  #(2000, 4)
+
+print(x3_train.shape) #(8000, 1)
+print(x3_test.shape)  #(2000, 1)
+
+print(y1_train.shape) #(8000, 4)
+print(y1_test.shape)  #(2000, 4)
+
 
 # x_test = test[:,1:36]
 # y_test = test[:,-4:]
@@ -151,21 +125,10 @@ print(y2_test.shape)  #(2000, 4)
 # print(y_test.shape)     #(2000, 4)
 # print(y_train.shape)    #(, 4)
 
-print(x1_train.shape)   #(8000, 35)
-print(x2_train.shape)   #(8000, 35)
-print(x3_train.shape)   #(8000, 1)
-print(x1_test.shape)   #(2000, 35)
-print(x2_test.shape)   #(2000, 35)
-
-
 
 #2. 모델구성
 from keras.models import Sequential, Model
 from keras.layers import Dense, Input
-#model = Sequential()
-#model.add(Dense(5, input_dim=3))
-#model.add(Dense(4))
-#model.add(Dense(1))
 
 input1 = Input(shape=(35,))
 dense1_1=Dense(5, activation='relu')(input1)
@@ -216,50 +179,39 @@ middle1 = Dense(10)(middle1)
 ####output모델구성######
 output1_1 = Dense(10)(middle1)
 output1_2 = Dense(7)(output1_1)
-output1_3 = Dense(4)(output1_2)
-#input1 and input 2 will be merged into one. 
-output2_1 = Dense(10)(middle1)
-output2_2 = Dense(7)(output2_1)
-output2_3 = Dense(4)(output2_2)
+output1_3 = Dense(3)(output1_2)
 
-output3_1 = Dense(10)(middle1)
-output3_2 = Dense(7)(output3_1)
-output3_3 = Dense(4)(output3_2)
 model = Model(inputs = [input1, input2, input3],
- outputs = [output1_3, output2_3, output3_3])
+ outputs = [output1_3])
 model.summary()
 print()
 
-
 print(x1_train.shape) #(8000, 35)
-print(y1_train.shape) #(8000, 4)
+print(x1_test.shape)  #(2000, 35)
+
 print(x2_train.shape) #(8000, 35)
-print(y2_train.shape) #(8000, 4)
+print(x2_test.shape)  #(2000, 35)
+
 print(x3_train.shape) #(8000, 1)
-print(y3_train.shape) #(8000, 4)
+print(x3_test.shape)  #(2000, 1)
+
+print(y1_train.shape) #(8000, 4)
+print(y1_test.shape)  #(2000, 4)
+
 
 #3. 훈련
 model.compile(loss='mae', optimizer = 'adam', metrics=['mae'])
-model.fit([x1_train, x2_train, x3_train], [y1_train,y2_train, y3_train], epochs=500, batch_size=52, validation_split=0.25, verbose=1)
+model.fit([x1_train, x2_train, x3_train], [y1_train], epochs=10, batch_size=32, validation_split=0.2, verbose=1)
 
-#validation_data=(x_val, y_val))
 
-print(x1_test.shape)#(2000, 35)
-# print(y1_test.shape)#(2000, 4)
-print(x2_test.shape)#(2000, 35)
-# print(y2_test.shape)#(2000, 4)
 x_test = np.append( x1_test, x2_test, axis=1)
-print(x_test.shape)
+print(x_test.shape) #(2000, 70)
+
 x_test = np.append(x3_test,  x_test, axis=1)
 print(x_test.shape)#(2000, 71)
 
-print(y1_test.shape)
-print(y2_test.shape)
+print(y1_test.shape) #(2000, 4)
 
-# y_test = np.append(y1_test,  y2_test, axis=1)
-# print(y_test.shape)  #(2000, 71)
-# y_test = np.append(y3_test,  y_test, axis=1)
-# print(y_test.shape)  #(2000, 71)
 
 #4, evaluate
 # avgloss, loss1_1, loss1_2 , loss1_3, mae1, mae2, mae3 = model.evaluate([x1_test,x2_test, x3_test],[y1_test, y2_test, y3_test] , batch_size = 5)
@@ -272,14 +224,14 @@ print(y2_test.shape)
 # print("mae2 :", mae2)
 # print("mae3 :", mae3)
 
-loss = model.evaluate([x1_test,x2_test, x3_test],[y1_test, y2_test, y3_test] , batch_size = 5)
+loss = model.evaluate([x1_test,x2_test, x3_test],[y1_test] , batch_size = 32)
 print("avgloss :", loss)
 
 print(test.shape) #(10000, 71)
 
 # xfinal= x1_train + x1_test
 # print(xfinal.shape)
-y_pred = model.predict(test)
+y_pred = model.predict([x1_test,x2_test, x3_test])  #(10000, 71)
 
 # y_pred = model.predict(test)
 print(y_pred)
