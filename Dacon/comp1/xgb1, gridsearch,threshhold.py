@@ -5,7 +5,7 @@ import pandas as pd
 import xgboost as xgb
 import matplotlib.pyplot as plt
 import sklearn
-from sklearn.model_selection import GridSearchCV, , RandomSearchCV,train_test_split, KFold, cross_val_score, RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV,train_test_split, KFold, cross_val_score, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from keras.datasets import mnist
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -48,19 +48,10 @@ x_pred = test.values
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.8,
                                                     shuffle = True, random_state = 66)
 
-######################
-# parameters = [
-#     {"n_estimators":[2000], "learning_rate":[0.02],
-#      "max_depth":[5],"colsample_bytree": [0.7], "colsample_bylevel":[0.6]}
-#     ]
-# grid = GridSearchCV(xgb, parameters, cv=5, n_jobs=-1)
-# model = MultiOutputRegressor(grid)
-# print(model)
-# model.fit(x_train, y_train)
 
 
-xgb = XGBRegressor()
-model = MultiOutputRegressor(xgb)
+xgbr = XGBRegressor(n_jobs=-1)
+model = MultiOutputRegressor(xgbr)
 model.fit(x_train, y_train)
 
 
@@ -79,20 +70,23 @@ for i in range(len(model.estimators_)):
         selection = SelectFromModel(model.estimators_[i], threshold = thres, prefit = True)
         
         parameter = {
-            'n_estimators': [100, 400],
-            'learning_rate' : [0.01, 0.03, 0.05,0.07],
+            'n_estimators': [100, 400, 500],
+            'learning_rate' : [0.01, 0.03, 0.05, 0.07],
             'colsample_bytree': [0.6, 0.7, 0.8],
             'colsample_bylevel':[0.6, 0.7, 0.8],
             'max_depth': [4, 5, 6]
         }
     
-        search = GridSearchCV( XGBRegressor(), parameter, cv =5, n_jobs = -1)
+        search = GridSearchCV(XGBRegressor(), parameter, cv =5, n_jobs = -1)
 
         select_x_train = selection.transform(x_train)
 
         multi_search = MultiOutputRegressor(search)
         multi_search.fit(select_x_train, y_train)
         
+        print("================================")
+        multi_search.best_params_
+        print(multi_search.best_params_)
         select_x_test = selection.transform(x_test)
 
         y_pred = multi_search.predict(select_x_test)
@@ -124,12 +118,12 @@ for i in range(len(model.estimators_)):
 # xgb = XGBRegressor()
 # grid = GridSearchCV(xgb, parameters, cv=5, n_jobs=-1)
 # model = MultiOutputRegressor(grid)
-# '''
+
 # 파라미터 변수 생성
 # xgb = XGBRegressor()
 # grid = GridSearchCV(xgb, params, cv)
 # model = MultiOutputRegressor(grid)
-# '''
+
 
 # # model.fit(x_train, y_train)
 # # print(x_test.shape) #(2000, 71)
@@ -142,75 +136,10 @@ for i in range(len(model.estimators_)):
 
 # print("R2 :", score) #R2 : 0.32713610454165776
 ##############################################################
-'''
-thresholds = np.sort(model.feature_importances_)
-             #정렬 #중요도가 낮은 것부터 높은것 까지
 
-print(thresholds)   
-
-
-for thresh in thresholds:      
-    selection = SelectFromModel(model, threshold=thresh, prefit=True)
-                                            #median
-    select_x_train = selection.transform(x_train)
-    print(select_x_train.shape)  
-
-    parameters = [
-    {"n_estimators":[1000,2000,3000], "learning_rate":[0.1,0.3,0.01,0.05],
-     "max_depth":[4,5,6]},
-    {"n_estimators":[900,1000,2000], "learning_rate":[0.1,0.01,0.05],
-    "colsample_bytree": [0.6,0.9,1], "max_depth":[4,5,6]},
-    {"n_estimators":[900,2000,1010], "learning_rate":[0.03,0.02,0.3, 0.05],
-    "colsample_bytree": [0.6,0.9,1], "max_depth":[4,5,6], "colsample_bytree":[0.6,0.7,0.9]}]
-
-
-    selection_model = GridSearchCV(XGBRegressor(), parameters, cv=5, n_jobs =-1)
-    selection_model.fit(select_x_train, y_train)
-
-    select_x_test = selection.transform(x_test)
-    x_pred = selection_model.predict(select_x_test)
-
-    score = r2_score(y_test, x_pred)
-    print("R2 : ", score)
-
-    print("Thresh= %.3f,n=%d, R2: %.2f%%" %(thresh, select_x_train.shape[1],
-                score*100.0))
-'''
-# y_pred.to_csv(경로)
-# predict할 sample-submission파일을 만든다. 
-# print(x_train.shape)
-# print(y_train.shape)
-# print(type(x_train))
-# print(type(y_train))
-
-
-
-# print("np_test print:", type(np_test))
-# print("np_test print:", np_test)
-# print("np_test print:", np_test.shape)
-'''
-
-
-
-x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, shuffle=True,  test_size = 0.2, random_state=33)
-
-
-
-print('np_test', np_test.shape)
-#4, evaluate
-loss , mae = model.evaluate(x_test, y_test, batch_size = 5)
-print("loss :", loss)
-print("mae :", mae)
-
-y_pred = model.predict(np_test)
-print(y_pred)
-
-
-# })
 
 a = np.arange(10000,20000)
 y_pred = pd.DataFrame(y_pred,a)
 y_pred.to_csv('./data/dacon/comp1/sample_submission.csv', index = True, header=['hhb','hbo2','ca','na'],index_label='id')
 
 # submission.to_csv('./submit/submission_dnn.csv', index = False)
-'''
