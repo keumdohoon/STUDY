@@ -26,9 +26,9 @@ print(x.shape) # (150, 4)
 print(y.shape) # (150,)
 print(x)
 print(y)
-
-
+'''
 y= np_utils.to_categorical(y)
+
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, random_state=66, shuffle=True,
@@ -52,7 +52,7 @@ model = KNeighborsClassifier()  #acc = 0.96666, R2 :0.90215310
 model.fit(x_train,y_train)
 #  batch_size=1, epochs=100)
 score = model.score(x_test, y_test)
-
+print('score', score)
 from sklearn.metrics import accuracy_score, r2_score
 
 #4, 평가와 예측
@@ -67,3 +67,4 @@ r2 = r2_score(y_test, y_pred)
 print("R2 : ", r2)
 print("acc : ",acc)
 print('score: ', score)
+'''
