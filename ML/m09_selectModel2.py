@@ -33,7 +33,7 @@ print(y)
 # warnings.filterwarning('ignore')
 
 
-x_train, x_test, y_train, y_test = train_test_split(x,y, test_size =0.2, random_state = 66)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size =0.2, random_state = 1)
 # warnings.filterwarning('ignore')
 
 
@@ -50,3 +50,21 @@ for (name, algorithm) in allAlgorithms:
 import sklearn
 print(sklearn.__version__)
 # warnings.filterwarning('ignore')
+# Name: MEDV, Length: 506, dtype: float64
+# ARDRegression 의 정답률 = 0.8012569266998009
+# AdaBoostRegressor 의 정답률 = 0.894048414606304
+# BaggingRegressor 의 정답률 = 0.9142013529303371
+# BayesianRidge 의 정답률 = 0.7937918622384774
+# CCA 의 정답률 = 0.7913477184424628
+# DecisionTreeRegressor 의 정답률 = 0.7903362302771831
+# DummyRegressor 의 정답률 = -0.0005370164400797517
+# ElasticNet 의 정답률 = 0.7338335519267194
+# ElasticNetCV 의 정답률 = 0.7167760356856181
+# ExtraTreeRegressor 의 정답률 = 0.6741489458885821
+# ExtraTreesRegressor 의 정답률 = 0.9350798890078814
+# GammaRegressor 의 정답률 = -0.0005370164400797517
+# GaussianProcessRegressor 의 정답률 = -6.073105259620457
+# GeneralizedLinearRegressor 의 정답률 = 0.7447888980918173
+# GradientBoostingRegressor 의 정답률 = 0.9452022467146529
+# HistGradientBoostingRegressor 의 정답률 = 0.9323597806119726
+# HuberRegressor 의 정답률 = 0.7426943860576776
