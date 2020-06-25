@@ -40,7 +40,7 @@ learning_rate = 0.05
 colsample_bytree = 0.9   
 colsample_bylevel = 0.6  
 # 점수:  0.9482512438175588
-
+#파라미터들을 위와 같이 설정해준다. 
 
 
 
@@ -55,7 +55,7 @@ n_jobs = -1
 
 model = XGBRegressor(max_depth=max_depth, learning_rate=learning_rate, colsample_bytree=colsample_bytree
                                     , n_estimators=n_estimators, n_jobs=n_jobs, colsample_bylevel= colsample_bylevel)
-                    
+#사용하게 될 모델, 위 상황에서는 XGBRegressor을 사용해주고 안에 우리가 위에서 이미 명시해준 params를 하나하나 넣어준다.                     
 model.fit(x_train, y_train)
 
 score = model.score(x_test, y_test)
