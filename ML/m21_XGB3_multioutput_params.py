@@ -61,7 +61,7 @@ parameters = {'n_estimators' : [1, 50, 100],
             }
 
 
-model = RandomizedSearchCV(XGBRFRegressor(n_estimators=1000, penalty=('l1', 'l2')), parameters, cv =5)
+model = RandomizedSearchCV(XGBRFRegressor(n_estimators=1000, penalty=('l1', 'l2')), parameters, cv =5, n_jobs=-1)
 model = MultiOutputRegressor(model)
 warnings.filterwarnings('ignore')
 model.fit(x_train, y_train)
