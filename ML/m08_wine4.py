@@ -4,17 +4,16 @@ import matplotlib.pyplot as plt
 #너무 많은 분류가 있으니 오히려 힘들다. 
 #와인 데이터 읽기 
 wine = pd.read_csv("./data/csv/winequality-white.csv", sep=';', header=0)
-#컬럼 안에 들어가 있는걸 그룹별로 모아주는 것
-
-count_data = wine.groupby('quality')['quality'].count()
-#1,2,3,4,5,6,7,8,9, 을 행별로 세겠다는 뜻이다 pandas groupby 검색해복시
-print(count_data)
-
-count_data.plot()
-plt.show()
 
 y= wine['quality']
 x = wine.drop('quality', axis = 1)
+
+
+print(x.shape)#(4898, 11)
+print(y.shape)#(4898,)
+
+
+
 #y레이블 축소
 #와인이 현재는 3등급에서 9등급까지 맞출 확률이 90프로 였는데 우리는 지금 그 등급을 3등급으로 나누었다 왜냐하면 9등급하면 너무 등급이 많기에..
 newlist = []
