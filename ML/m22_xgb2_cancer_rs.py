@@ -58,7 +58,8 @@ n_jobs = -1
 
 
 model = RandomizedSearchCV(XGBClassifier(), Parameters, cv=5,n_jobs = -1)
-
+#파라미터를 일일이 정의해주는것보단 randomsearch(랜덤으로 제일 좋은 파라미터를 구해라)를 사용해주기 위해선 params이라는 파라미터들의 옵션을 위에 
+#명시해주고 나서 그 안에서 제일 좋은 것을 뽑아주게 한다. 
 model.fit(x_train, y_train)
 print('================================')
 
