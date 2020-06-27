@@ -22,8 +22,6 @@ from keras.regularizers import l2
 # 여기서 주의할점은 [] 가 있고 없고가 매우 중요하니 항상이를 주의할것   
 x_data = np.array([[0,0],[1,0],[0,1],[1,1]])  #(4,2), 이렇게 덮어주는 것이다. 
 #변환하기 전 모델 , x_data = [[0,0],[1,0],[0,1],[1,1]] 여기서 주의할 점은 겉에 대괄호가 하나 더 생겨서 전체 데이터를 한번더 덮어준다는 것이다. 
-
-print(x_data.shape)
 y_data = np.array([0,1,1,0]) #(4,)
  #0과 0이들어가서 0이[0,0] 나오고 1과1이[1,1] 들어가서 1이 나왔다. 
 #변환하기 전의 데이터, y_data = [0,1,1,0] 이것도 위에와 마찬가지로 변환하기 전이랑 후의 차이다 대괄호 차이이다. 
@@ -61,20 +59,24 @@ model.fit(x_data, y_data, batch_size=1, epochs=100)
 
 #4. 평가와 예측
 x_test =np.array([[0,0], [1, 0], [0,1], [1,1]])
+y_test = np.array([0,1,1,0])
+
+loss, acc = model.evaluate(x_test, y_test, batch_size = 1)
+
 y_predict = model.predict(x_test)
+y_predict = np.where(y_predict>0.5, 1, 0)
 
 
-acc = model.evaluate(x_test, y_data)
 #accuracy score, and score is the substitute of evaluate from keras evaluate= score 
 print(x_test, "의 예측 결과 :", y_predict)
-print("loss, acc = ", acc)
+print("acc = ", acc)
 
 
 
 
 #ML에서는 평가와 예측도 이렇게 간단하게 구현이 가능하다. 
 # x_test = [0,0], [1, 0], [0,1], [1,1]
-# y_predict = model.predict(x_test)""
+# y_predict = model.predict(x_test)
 # acc = accuracy_score(y_data, y_predict)
 # print(x_test, "의 예측 결과 :", y_predict)
 # print("acc = ", acc)
@@ -88,7 +90,7 @@ print("loss, acc = ", acc)
 
 # model.fit(x_train,y_train, epochs=500, batch_size=100, validation_data = (x_train, y_train))
 # loss, acc = model.evaluate(x_test, y_test, batch_size=100)
-# #fit 은 훈련시키다, 훈련을 시키는데 x,t, train으로 훈련시키겠다. Epochs500번 훈련 시키겠다. Batch size= 디폴트를 하려면 32개 이상인 데이터를 사용한다. 32개 이하면 의미가 없어진다.  
+# #fit 은 훈련시키다, 훈련을 시키는데 x,y, train으로 훈련시키겠다. Epochs500번 훈련 시키겠다.   
 
 
 # print("loss : ", loss)
