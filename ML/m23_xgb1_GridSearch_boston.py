@@ -18,10 +18,10 @@ print(y.shape)
 x_train, x_test, y_train, y_test = train_test_split(x,y,train_size = 0.8,
                                                     shuffle = True, random_state = 120)
 
-n_estimators = 220
-learning_rate = 0.035      
-colsample_bytree = 0.7   
-colsample_bylevel = 0.7  
+# n_estimators = 220
+# learning_rate = 0.035      
+# colsample_bytree = 0.7   
+# colsample_bylevel = 0.7  
 # 점수:  1.0
 
 max_depth = 5
@@ -62,5 +62,5 @@ score = model.score(x_test, y_test)
 print('점수: ', score)
 
 
-plot_importance(model)
+plot_feature_importance(model)
 plt.show()
