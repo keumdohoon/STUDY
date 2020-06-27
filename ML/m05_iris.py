@@ -26,7 +26,7 @@ print(x.shape) # (150, 4)
 print(y.shape) # (150,)
 print(x)
 print(y)
-'''
+
 y= np_utils.to_categorical(y)
 
 
