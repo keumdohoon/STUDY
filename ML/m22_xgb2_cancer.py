@@ -60,5 +60,5 @@ print(model.feature_importances_)
 # print('========================================')
 
 plot_importance(model)
-# plt.show()
+plt.show()
 #어떤 feature이 중요한지 쉽게 볼수가 있다. 딱 한 줄로 정리가 가능 
