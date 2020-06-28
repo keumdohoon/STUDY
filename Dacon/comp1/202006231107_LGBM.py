@@ -79,18 +79,27 @@ print("y_tes", y_test)
 # LGBMRegressor(n_estimators = 300, max_depth =5, scale_pos_weight=1, colsample_bytree=1, learning_rate = 0.1, n_jobs = -1, num_leaves=3)
 # model = MultiOutputRegressor(m?odel)
 
-lgbm = LGBMRegressor(n_estimators = 200, max_depth =6, scale_pos_weight=1, learning_rate = 0.2, n_jobs = -1, num_leaves=5)
+# lgbm = LGBMRegressor(n_estimators = 200, max_depth =6,colsample_bytree=0.7, scale_pos_weight=1.2, 
+#                      num_iterations=100, early_stopping_round=20,learning_rate = 0.2, n_jobs = -1,bagging_fraction=3)
 
 
-
+lgbm = LGBMRegressor(max_depth =5,dart=0.3,num_iterations =1000,learning_rate=0.07,   n_jobs=-1)
 multi_LGBM = MultiOutputRegressor(lgbm)
-multi_LGBM.fit(x_train, y_train)
+multi_LGBM.fit(x_train, y_train, verbose=False, eval_metric='logloss', eval_set = [(x_train, y_train), (x_test, y_test)]
+                        , early_stopping_rounds=20)
+
+
+y_pred = multi_LGBM.predict(x_test)
+
+acc = accuracy_score(y_test, y_pred)
+print("acc : ", acc)
+'''
 score = multi_LGBM.score(x_test, y_test)
 print('R2: ', score) #R2:  0.9323782715918234
 
 print(len(multi_LGBM.estimators_)) #4
 # threshold = (model.estimators_)
-'''
+
 # print(regr_multi_RF.estimators_[0].feature_importances_)
 # print(regr_multi_RF.estimators_[1].feature_importances_)
 # print(regr_multi_RF.estimators_[2].feature_importances_)
@@ -113,7 +122,7 @@ for i in range(len(multi_LGBM.estimators_)):
     for thres in threshold:
         selection = SelectFromModel(multi_LGBM.estimators_[i], threshold = thres, prefit = True)
         
-        parameter = {
+        params = {
             'n_estimators': [100, 200, 400],
             'learning_rate' : [0.03, 0.05, 0.07, 0.1],
             'colsample_bytree': [0.6, 0.7, 0.8, 0.9],
@@ -123,7 +132,7 @@ for i in range(len(multi_LGBM.estimators_)):
     
         search = RandomizedSearchCV( LGBMRegressor(n_estimators = 2000, max_depth =6, scale_pos_weight=2,
                                  colsample_bytree=1, learning_rate = 0.2, n_jobs = -1, num_leaves=5), 
-                                 parameter, cv =5)
+                                 params, cv =5)
 
         select_x_train = selection.transform(x_train)
 
@@ -144,8 +153,10 @@ for i in range(len(multi_LGBM.estimators_)):
         submission = pd.DataFrame(y_predict, a)
         submission.to_csv('./Dacon/comp1/select_LG%d_%.5f.csv'%(i, mae),index = True, header=['hhb','hbo2','ca','na'],index_label='id')
 
-'''
-'''
+
+
+
+
 models = []
 res = np.array([])
 
