@@ -58,19 +58,19 @@ import pandas as pd
 # X_data = []
 # Y_data = []
 
-X_data = np.loadtxt('D:/Study/Bitcamp/data/dacon/comp3/KAERI_dataset/train_features.csv',skiprows=1,delimiter=',')
+X_data = np.loadtxt('D:\Study\Bitcamp\Dacon\comp3\data\train_features.csv/',skiprows=1,delimiter=',')
 X_data = X_data[:,1:]
 print(X_data.shape)
      
     
-Y_data = np.loadtxt('D:/Study/Bitcamp/data/dacon/comp3/KAERI_dataset/train_target.csv',skiprows=1,delimiter=',')
+Y_data = np.loadtxt('D:\Study\Bitcamp\Dacon\comp3\data\train_target.csv/',skiprows=1,delimiter=',')
 Y_data = Y_data[:,1:]
 print(Y_data.shape)
 
 X_data = X_data.reshape((2800,375,5,1))
 print(X_data.shape)
 
-X_data_test = np.loadtxt('D:/Study/Bitcamp/data/dacon/comp3/KAERI_dataset/test_features.csv',skiprows=1,delimiter=',')
+X_data_test = np.loadtxt('D:\Study\Bitcamp\Dacon\comp3\data\test_features.csv/',skiprows=1,delimiter=',')
 X_data_test = X_data_test[:,1:]
 X_data_test = X_data_test.reshape((700,375,5,1))
 
@@ -153,11 +153,12 @@ def set_model(train_target):  # 0:x,y, 1:m, 2:v
     model.add(Flatten())
     model.add(Dense(256, activation ='elu'))
     model.add(Dense(128, activation ='elu'))
-    model.add(Dense(64, activation ='elu'))
-    model.add(Dense(32, activation ='elu'))
-    model.add(Dense(16, activation ='elu'))
-    model.add(Dense(8, activation ='elu'))
+    model.add(Dense(86, activation ='elu'))
 
+    model.add(Dense(58, activation ='elu'))
+    model.add(Dense(39, activation ='elu'))
+    model.add(Dense(26, activation ='elu'))
+    model.add(Dense(8, activation ='elu'))
     model.add(Dense(4))
 
     optimizer = keras.optimizers.Adam()
@@ -191,7 +192,7 @@ def train(model,X,Y):
 
 
     history = model.fit(X, Y,
-                  epochs=125,
+                  epochs=126,
                   batch_size=128,
                   shuffle=True,
                   validation_split=0.2,
@@ -308,4 +309,4 @@ for train_target in range(3):
     elif train_target == 2: # v 학습
         submit.iloc[:,4] = pred_data_test[:,3]
 
-submit.to_csv('./comp3_submit.csv', index = False)
+submit.to_csv('./comp3.10_submit.csv', index = False)
