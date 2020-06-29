@@ -7,10 +7,11 @@ import p12_tv
 # 시청하다
 # tv.py의 module이름은 p12_tv
 #이런식으로 시청하다와 모듈의 이름은 까지를 다 프린트해준다. 
+#module의 이름은 main 이 아닌 가져오게된 폴더의 이름을 프린트해주게 된다. 
 print("###############################")
 
 print("do.py의 module이름은", __name__)
-# do.py의 module이름은 __main__ 현재 같은 폴더에 있는 한수니까 main이라고 뜨게 된다. 
+# do.py의 module이름은 __main__ 현재 같은 폴더에 있는 함수니까 main이라고 뜨게 된다. 
 print("###############################")
 
 p11_car.drive()
