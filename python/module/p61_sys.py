@@ -4,6 +4,7 @@ print(sys.path)
 from test_import import p62_import
 p62_import.sum2()
 
+#우리가 아나콘다에 만들어준 test폴더안에 있는 p62_import라는 것을 임포트해준다. 
 # 이 import는 아나콘다 폴더에 들어있다!
 # 작업그룹 임포느 썸탄다
 
