@@ -11,3 +11,4 @@ from machine import tv
 
 car.drive()
 tv.watch()
+#결국 from을 뭘적어주냐와 import를 어디까지 해주냐에 따라서 나중에 출력할때 어디까지 적어줘야되는지가 결정이 난다. 
