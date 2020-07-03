@@ -87,7 +87,7 @@ search = RandomizedSearchCV(estimator = model, param_distributions = hyperparame
 # fit
 search.fit(x_train, y_train)
 acc = search.score(x_test,y_test)
-
+# np.save('./keras/keras111_model.py', arr=search)
 print("최고의 파람:", search.best_params_)
 print( "acc : ", acc)
 # 최고의 파람: {'optimizer': <class 'tensorflow.python.keras.optimizer_v2.adam.Adam'>, 
