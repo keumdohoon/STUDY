@@ -74,7 +74,7 @@ print("loss ; ", loss)
 print("mse : ", mse)
 
 # y_pred = model.predict(x_pred)
-# print("y_pred : ", y_pred)
+# print("y_pred : ", y_pred)#이거는 눈으로 보기 위한 예측값이다. 
 
 y_predict = model.predict(x_test)
 print("y_predict:", y_predict)
