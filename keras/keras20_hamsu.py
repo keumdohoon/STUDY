@@ -41,12 +41,15 @@ x, y, shuffle=False, test_size=0.2, train_size = 0.8)
 #2. 모델구성
 from keras.models import Sequential, Model
 from keras.layers import Dense, Input
+
+#한수형 모델 가져오기: Model
+#함수형 모델은 input layer 을 명시해 주어야 한다. 
 #model = Sequential()
 #model.add(Dense(5, input_dim=3))
 #model.add(Dense(4))
 #model.add(Dense(1))
 
-input1 = Input(shape=(3,  ))
+input1 = Input(shape=(3,  ))  ## input layer : 함수형 모델에서는 shape 사용, 행을 뺀 나머지 부분을 사용해준다. 
 dense1=Dense(5, activation='relu')(input1)
 dense1=Dense(10,)(dense1)
 dense1=Dense(20,)(dense1)
