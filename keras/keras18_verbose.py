@@ -64,6 +64,11 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer = 'adam', metrics=['mse'])
 model.fit(x_train, y_train, epochs=100, batch_size=1, validation_split=0.25, verbose=2)
 
+#verbose
+ #  0 : 안보임                      
+ #  1 : defalut             
+ #  2 : 프로그래스 바가 안보임
+ #  3 : epoch만 보임 
 
 #validation_data=(x_val, y_val))
 #4. 평가와 예측
