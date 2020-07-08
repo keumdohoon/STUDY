@@ -10,7 +10,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization, Activation, Dropout
 from keras.optimizers import Adam, SGD
 from keras.applications import VGG16, VGG19, Xception, ResNet101, ResNet101V2, ResNet152V2
-from keras.applications import ResNet152, ResNet50, ResNet50V2, InceptionResNetV2, InceptionV3
+from keras.applications import ResNet152, ResNet50, ResNet50V2, InceptionResNetV2, InceptionV3, NASNetMobile
 from keras.applications import MobileNet, MobileNetV2, DenseNet121, DenseNet169, DenseNet201
 from keras.datasets import cifar10
 import matplotlib.pyplot as plt
@@ -25,7 +25,7 @@ print(y_test.shape)         # (10000, 1)
 
 ishape = (32,32,3)
 
-ResNet101V2 = ResNet101V2(include_top=False, weights='imagenet', input_shape=ishape)   # (None, 224, 224, 3)
+ResNet101V2 = NASNetMobile(include_top=False, weights='imagenet', input_shape=ishape)   # (None, 224, 224, 3)
 # vgg16.summary()
 
 act = 'relu'
@@ -48,7 +48,7 @@ model.compile(optimizer=SGD(lr=1e-4, momentum=0.9), loss='sparse_categorical_cro
 
 model.fit(x_train, y_train,
           epochs=30, batch_size=32, verbose=1,
-          validation_split=0.3)
+          validation_split=0.3)  
 
 model.save_weights('param_vgg.hdf5')
 
