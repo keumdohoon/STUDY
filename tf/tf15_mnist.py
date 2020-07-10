@@ -10,7 +10,6 @@ from keras.datasets import mnist
 
 # 데이터 입력
 
-# dataset = load_iris()
 
 (x_train,y_train),(x_test,y_test)=mnist.load_data()
 
