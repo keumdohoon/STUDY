@@ -32,7 +32,7 @@ train = tf.train.GradientDescentOptimizer(learning_rate=0.16777).minimize(cost)
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer()) #initializer는 변수를 선언하겠다라는 것으로 이해하면 더욱 쉽게 이해된다. 
 
-    for step in range(601): #2000번 반복해 주라는 말이다. 
+    for step in range(501): #500번 반복해 주라는 말이다. 
         _, cost_val, W_val, b_val = sess.run([train, cost, W, b], feed_dict={x_train:[1,2,3], y_train:[3,5,7]})
 
         if step % 20 ==0: #20번마다 한번씩 프린트 해주란 말이다. 
