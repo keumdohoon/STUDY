@@ -94,7 +94,7 @@ bias = tf.Variable(tf.random_normal([1]), name='bias')
 # sequence_loss = tf.contrib.seq2seq.sequence_loss(
     # logits = hypothesis, targets = Y, weights = weights)
 # loss = tf.reduce_mean(sequence_loss)
-hypothesis = tf.matmul(X,weights)+bias
+
 
 #전체에 대한 평균
 cost = tf.reduce_mean(tf.square(hypothesis -Y))
