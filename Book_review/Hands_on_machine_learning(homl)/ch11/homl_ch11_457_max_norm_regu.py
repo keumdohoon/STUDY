@@ -8,6 +8,6 @@ keras.layers.Dense(100, activation="selu", kernel_initializer="lecun_normal",
 
 #매 훈련 반복이 끝난 후 모델의 fit() 매서드가 층의 가중치와 함께 max_norm()이 반환한 
 #객체를 호출하고 스케일이 조정된 가중치를 반환받습니다. 
-# 이 값을 사용하여 층의 가중치를 바꿉니다. 
+# 이 값을 사용하여 층의 가중치를 바꾼다. 
 
 
