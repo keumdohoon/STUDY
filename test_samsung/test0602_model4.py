@@ -120,4 +120,3 @@ model.summary()
 model.compile(optimizer = 'adam', loss= 'mse', metrics= ['mse'])
 model.fit([x_sam, x_hit], y_sam, validation_split= 0.2, epochs= 101)
 
-'''
