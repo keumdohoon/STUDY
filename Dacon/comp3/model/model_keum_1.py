@@ -308,4 +308,13 @@ for train_target in range(3):
     elif train_target == 2: # v 학습
         submit.iloc[:,4] = pred_data_test[:,3]
 
-submit.to_csv('./dacon/comp3/sub/comp4_submit.csv', index = False)
+submit.to_csv('./dacon/comp3/sub/comp_submit0101.csv', index = False)
+
+# 정답(original): [   0.  -400.    50.     0.4]
+# 예측값(original): [-1.8488737   1.4511932  -0.11388124  0.40439323]
+# 6.650842442633095
+# 150823399.18256858
+# (2800, 4)
+# 1.4518206963574747
+# 6.138348579406743
+# -6.105488538742065
