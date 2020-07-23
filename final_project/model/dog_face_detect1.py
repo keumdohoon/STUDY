@@ -16,9 +16,10 @@ def face_detector(path, w, h):
     X = []
     Y = []
 
-    label = [0 for i in range(num_classes)]
+    # label = [0 for i in range(num_classes)]
 
     for idex, folder in enumerate(folder_name):                   # 폴더별 이미지 불러오기
+        label = [0 for i in range(num_classes)]
         label[idex] = 1
         image_dir = path + '/'+folder+'/'
 
@@ -88,12 +89,12 @@ def face_detector(path, w, h):
 
     return np.array(X), np.array(Y)
 
-x, y = face_detector(train_path, 112, 112)
+x, y = face_detector(train_path,300 , 300)
 print(x.shape)
 print(y.shape)
 
-np.save('D:\Study\Bitcamp/final_project\Jain/dog_image.npy', x)
-np.save('D:\Study\Bitcamp/final_project/Jain/dog_label.npy', y)
+np.save('D:\Study\Bitcamp/final_project\Jain/dog_image_0721.npy', x)
+np.save('D:\Study\Bitcamp/final_project/Jain/dog_label_0721.npy', y)
 print('------------- save complete ---------------')
 
 end = time.time()
