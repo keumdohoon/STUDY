@@ -2,7 +2,7 @@
 import numpy as np 
 x = np.transpose([range(1,101), range(311,411), range(100)])
 y = np.transpose([range(101,201), range(711,811), range(100)])
-#np.array 안에 데이터들을 []로 묶는다. 
+#np.array 안에 데이터들을 []로 묶는다.리스트  
 #array 말고 transpose를 쓰게 되면 행과 열이 바뀌게 된다. 
 
 print(x.shape)
@@ -11,7 +11,8 @@ from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(
 x, y, shuffle=False, test_size=0.2, train_size = 0.8)
 # (x,y, random_state = 66, 
-
+#TTS에서는 y와 x의 데이터 안에서 트레인과 테스트를 나누는 것이다. 저 데이터가 따로 나와있지 않으면 우리가 임의로 잘라서 트레인과 테스트를 나눠줘야한다.
+ 
 #열우선 행무시
 
 # x_train, x_test, y_train, y_test = train_test_split(x,y, random_state = 66, test_size = 0.4 )
@@ -22,7 +23,16 @@ x, y, shuffle=False, test_size=0.2, train_size = 0.8)
 #print("x_test:", x_test)
 #print("x_val:", x_val)
 
-
+'''
+# ['열(column)' 우선, "행" 무시]
+# column(열) : data의 종류 = input_dim에 들어가는 갯수 ex)날씨, 돈, 주가 등등
+# 행 : column에 들어가는 data의 갯수
+# 행, 열 바꾸는 법
+# 1. np.swapaxes( , 0, 1) : 만들어지는 것의 행과 열을 반전 ex) (a, b) -> (b, a) 
+# 2. np.transpos    : 동일
+# 3. .T             : 동일         
+# 4. .reshape(a, b) : a행 b열의 모습으로 다시 만들어줌 ex) (c, d) -> (a, b)
+'''
 
 
 #x_train= x[:60]
