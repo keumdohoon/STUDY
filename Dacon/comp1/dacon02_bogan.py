@@ -3,7 +3,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-datestrs = ['6/1/2020', '6/3/2020', '6/4/2020', '6/8/2020', '6/10/2020']
+datestrs = ['6/1/2020', '6/3/2020', '6,4,2020', '6/8/2020', '6/10/2020']
 dates = pd.to_datetime(datestrs)
 print(dates)
 print("===============================")
