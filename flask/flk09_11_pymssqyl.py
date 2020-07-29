@@ -2,12 +2,13 @@ import pymssql as ms
 #커멘드 창에서 pip install pysmssql 을 설치해둔다
 
 conn= ms.connect(server='127.0.0.1', user = 'bit2', 
-                  password = '1234', database = 'bitdb', port = 65009)
+                  password = '1234', database = 'bitdb', port = 1433)
 
 #포트 번호를 설정해 주어야 하는데 이는 SQL 서버 구성 관리자 에서 SQL server네트워크 구성에 들어간 다음에 
 #오른쪽 클릭 속성을 ->tcp/ip오른쪽 클릭->속성 ->맨밑에 있는 포트번호를 가져와서 설정을 해준다. 
 
-#이를 실행하기 전에 csv파일을 db로(smssql) 불러와주어야 하는데 이는 다른 vs코드 외에 창에서 실행해주고 난다음에 불러와주어야 한다. 
+#이를 실행하기 전에 csv파일을 db로server management studio sql(smssql) 불러와주어야 하는데 이는 다른 vs코드 외에 창에서 실행해주고 난다음에 불러와주어야 한다.
+ 
 
 
 
@@ -16,7 +17,8 @@ conn= ms.connect(server='127.0.0.1', user = 'bit2',
 #들어가는 정보를 지정한다. 
 cursor = conn.cursor()
 
-# cursor.execute("SELECT * FROM iris;")
+#세가지의 데이터베이스를 준비해준다. 
+#cursor.execute("SELECT * FROM iris;")
 cursor.execute("SELECT * FROM sonar;")
 # cursor.execute("SELECT * FROM wine;")
 
