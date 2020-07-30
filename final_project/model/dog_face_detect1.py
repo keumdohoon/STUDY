@@ -16,11 +16,8 @@ def face_detector(path, w, h):
     X = []
     Y = []
 
-    # label = [0 for i in range(num_classes)]
 
-    for idex, folder in enumerate(folder_name):                   # 폴더별 이미지 불러오기
-        label = [0 for i in range(num_classes)]
-        label[idex] = 1
+    for label, folder in enumerate(folder_name):                   # 폴더별 이미지 불러오기
         image_dir = path + '/'+folder+'/'
 
         f = os.listdir(image_dir)           # 폴더내 파일 이름 찾기
@@ -37,8 +34,8 @@ def face_detector(path, w, h):
             y = Y.append
 
             for i, d in enumerate(dets):
-                # print("Detection {}: Left:{} Top:{} Right:{} Bottom:{} Confidence:{}".format(i+1, 
-                #             d.rect.left(), d.rect.top(), d.rect.right(), d.rect.bottom(), d.confidence))
+                print("Detection {}: Left:{} Top:{} Right:{} Bottom:{} Confidence:{}".format(i+1, 
+                            d.rect.left(), d.rect.top(), d.rect.right(), d.rect.bottom(), d.confidence))
 
                 x1, y1 = d.rect.left(), d.rect.top()
                 x2, y2 = d.rect.right(), d.rect.bottom()
@@ -49,29 +46,18 @@ def face_detector(path, w, h):
                 y1 = y1 - pad*3/8
                 x2 = x2 + pad/4
                 y2 = y2 + pad/8
-                #-------------정사각형으로 만들기--------------
-                # dx = (x2 - x1)
-                # dy = (y2 - y1)
-                # same = np.abs(dx - dy)/2
-
-                # if dx > dy:
-                #     y1 = y1 - same
-                #     y2 = y2 + same
-                # else:
-                #     x1 = x1 - same
-                #     x2 = x2 + same
-                #---------------------------------------------
-
+                
                 x1, x2, y1, y2 = map(int, (x1, x2, y1, y2)) # int형으로 변환
 
-                # print('가로 : ',x1, x2)
-                # print('세로 : ',y1, y2)                    
+                print('가로 : ',x1, x2)
+                print('세로 : ',y1, y2)                    
 
-                cv2.rectangle(img_result, (x1, y1), (x2, y2), thickness=1, color=(122, 122, 122), lineType=cv2.LINE_AA)
+                cv2.rectangle(img_result, (x1, y1), (x2, y2), 
+                                thickness=1, color=(122, 122, 122), lineType=cv2.LINE_AA)
 
-                # plt.figure(figsize=(16, 16))
-                # plt.imshow(img_result)
-                # plt.show()
+                plt.figure(figsize=(16, 16))
+                plt.imshow(img_result)
+                plt.show()
 
                 if x1 < 0:
                     x1 = 0
@@ -79,9 +65,10 @@ def face_detector(path, w, h):
                     y1 = 0
                     
                 cropping = img[y1:y2, x1:x2]
-                crop = cv2.resize(cropping, dsize = (w, h), interpolation = cv2.INTER_LINEAR)
-                # plt.imshow(crop)
-                # plt.show()
+                crop = cv2.resize(cropping, dsize = (w, h),
+                                     interpolation = cv2.INTER_LINEAR)
+                plt.imshow(crop)
+                plt.show()
                 x(crop/255)
                 y(label)
 
@@ -89,7 +76,7 @@ def face_detector(path, w, h):
 
     return np.array(X), np.array(Y)
 
-x, y = face_detector(train_path,300 , 300)
+x, y = face_detector(train_path,128 , 128)
 print(x.shape)
 print(y.shape)
 

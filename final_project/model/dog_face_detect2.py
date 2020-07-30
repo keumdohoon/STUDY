@@ -6,7 +6,7 @@ import time
 
 start = time.time()
 
-train_path = 'D:/data/project/test'
+train_path = 'D:\\breed'
 
 def face_detector(path, w, h):
     folder_name = os.listdir(path)               # category 폴더 : list
@@ -30,7 +30,7 @@ def face_detector(path, w, h):
 
             img_result = img.copy()                     # 원본 이미지 copy
 
-            detector = dlib.cnn_face_detection_model_v1('./project/project02/weight/dogHeadDetector.dat')
+            detector = dlib.cnn_face_detection_model_v1('D:\Study\Bitcamp\\final_project\Jain\dogHeadDetector.dat')
             dets = detector(img, upsample_num_times=1)
 
 
@@ -91,8 +91,8 @@ def face_detector(path, w, h):
         images = np.array(X)
         target = np.array(Y)
 
-        np.save('./project/project02/data/face_image_%s.npy'%(folder), images)
-        np.save('./project/project02/data/face_label_%s.npy'%(folder), target)
+        np.save('D:\Study\Bitcamp\\final_project\data\\face_image_%s.npy'%(folder), images)
+        np.save('D:\Study\Bitcamp\\final_project\data\\face_label_%s.npy'%(folder), target)
         print('---------- END %s ---------'%(folder))
 
     
@@ -105,13 +105,13 @@ def _append(image_label, shape):                     # shape : 저장한 파일 
     folder_name = os.listdir(train_path)
 
     for f in folder_name:
-        y = np.load('./project/project02/data/face_%s_%s.npy'%(image_label, f))
+        y = np.load('D:\Study\Bitcamp\\final_project\data\\face_%s_%s.npy'%(image_label, f))
         print(y.shape)
         arr = np.append(arr, y, axis = 0)
 
     print(arr.shape)
 
-    np.save('./project/project02/data/face_%s_part1.npy'%(image_label), arr)
+    np.save('D:\Study\Bitcamp\\final_project\data\\face_%s_part1.npy'%(image_label), arr)
     print('------------- save complete ---------------')
 
 # image파일 합칠시 'image'
