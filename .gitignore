@@ -1,0 +1,18 @@
+
+*.csv
+*.h5
+*.hdf5
+*.npy
+*.png
+*.jpg
+*.jpeg
+*.json
+*.html
+*.txt
+*.db
+*.zip
+
+## directory
+.vscode/
+__pycache__/
+data/
